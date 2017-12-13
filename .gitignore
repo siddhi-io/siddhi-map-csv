@@ -7,8 +7,6 @@
 # BlueJ files
 *.ctxt
 
-target/
-
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
@@ -34,5 +32,21 @@ target
 .settings/
 .cache-tests
 .cache-main
+target
+*.iml
+*.iws
+*.ipr
+.idea
+.m2
 
 site/
+# Ignore everything in this directory
+target
+.classpath
+.settings
+.project
+*.iml
+*.iws
+*.ipr
+.idea
+.m2
