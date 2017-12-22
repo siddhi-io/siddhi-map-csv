@@ -112,7 +112,7 @@
                 </executions>
             </plugin>
         </plugins>
-        <pluginManagement>git
+        <pluginManagement>
             <plugins>
                 <plugin>
                     <groupId>org.wso2.carbon.maven</groupId>
