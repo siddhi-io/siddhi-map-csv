@@ -4,7 +4,7 @@
 
 ### csv *<a target="_blank" href="https://wso2.github.io/siddhi/documentation/siddhi-4.0/#sink-mapper">(Sink Mapper)</a>*
 
-<p style="word-wrap: break-word">This output mapper extension allows you to convert Siddhi events processed by the WSO2 SP to CSV message before publishing them. You can either use custom place order to map a custom CSV message or use pre-defined CSV format where event conversion takes place without extra configurations.</p>
+<p style="word-wrap: break-word">This output mapper extension allows you to convert Siddhi events processed by the WSO2 SP to CSV message before publishing them. You can either use custom placeholder to map a custom CSV message or use pre-defined CSV format where event conversion takes place without extra configurations.</p>
 
 <span id="syntax" class="md-typeset" style="display: block; font-weight: bold;">Syntax</span>
 ```
@@ -23,7 +23,7 @@
     </tr>
     <tr>
         <td style="vertical-align: top">delimiter</td>
-        <td style="vertical-align: top; word-wrap: break-word">This parameter used to separate the output CSV data, when converting a Siddhi events to CSV format,</td>
+        <td style="vertical-align: top; word-wrap: break-word">This parameter used to separate the output CSV data, when converting a Siddhi event to CSV format,</td>
         <td style="vertical-align: top">,</td>
         <td style="vertical-align: top">STRING</td>
         <td style="vertical-align: top">Yes</td>

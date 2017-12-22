@@ -48,14 +48,14 @@ import java.util.concurrent.atomic.AtomicBoolean;
         name = "csv",
         namespace = "sinkMapper",
         description = "This output mapper extension allows you to convert Siddhi events processed by the WSO2 SP to " +
-                "CSV message before publishing them. You can either use custom place order to map a custom CSV" +
-                " message or use pre-defined CSV format where event conversion " +
-                "takes place without extra configurations.",
+                "CSV message before publishing them. You can either use custom placeholder to map a custom CSV" +
+                " message or use pre-defined CSV format where event conversion takes place without" +
+                " extra configurations.",
         parameters = {
                 @Parameter(
                         name = "delimiter",
                         description = "This parameter used to separate the output CSV data, when converting " +
-                                "a Siddhi events to CSV format,",
+                                "a Siddhi event to CSV format,",
                         optional = true, defaultValue = ",",
                         type = {DataType.STRING}),
                 @Parameter(
@@ -219,82 +219,79 @@ public class CSVSinkMapper extends SinkMapper {
     @Override
     public void mapAndSend(Event[] events, OptionHolder optionHolder,
                            Map<String, TemplateBuilder> payloadTemplateBuilderMap, SinkListener sinkListener) {
-        if (events.length < 1) {
-            log.info("can't get the event");
-        } else {
-            try {
-                if (isAddHeader) {
-                    CSVFormat.DEFAULT
-                            .withDelimiter(delimiter)
-                            .withNullString("null")
-                            .withQuote('\"')
-                            .printRecord(stringWriter, headerOfData);
-                    sinkListener.publish(stringWriter.toString());
-                    isAddHeader = false;
-                    stringWriter.getBuffer().setLength(0);
-                }
-                if (payloadTemplateBuilderMap != null && isValidateEntry.get()) { //custom mapping
-                    if (eventGroupEnabled) {
-                        for (Event event : events) {
-                            for (int i = 0; i < headerOfData.length; i++) {
-                                dataOfEvent[i] = event.getData(streamDefinition.getAttributePosition(
-                                        headerOfData[i].toString()));
-                            }
-                            CSVFormat.DEFAULT
-                                    .withDelimiter(delimiter)
-                                    .withNullString("null")
-                                    .withQuote('\"')
-                                    .withRecordSeparator(System.lineSeparator())
-                                    .printRecord(stringWriter, dataOfEvent);
-                        }
-                        sinkListener.publish(stringWriter.toString());
-                        stringWriter.getBuffer().setLength(0);
-                    } else {
-                        for (Event event : events) {
-                            for (int i = 0; i < headerOfData.length; i++) {
-                                dataOfEvent[i] = event.getData(streamDefinition.getAttributePosition(
-                                        headerOfData[i].toString()));
-                            }
-                            CSVFormat.DEFAULT
-                                    .withDelimiter(delimiter)
-                                    .withNullString("null")
-                                    .withQuote('\"')
-                                    .printRecord(stringWriter, dataOfEvent);
-                            sinkListener.publish(stringWriter.toString());
-                            stringWriter.getBuffer().setLength(0);
-                        }
-                    }
-                } else if (payloadTemplateBuilderMap == null) {
-                    if (eventGroupEnabled) {
-                        for (Event event : events) {
-                            dataOfEvent = event.getData();
-                            CSVFormat.DEFAULT
-                                    .withDelimiter(delimiter)
-                                    .withNullString("null")
-                                    .withQuote('\"')
-                                    .withRecordSeparator(System.lineSeparator())
-                                    .printRecord(stringWriter, dataOfEvent);
-                        }
-                        sinkListener.publish(stringWriter.toString());
-                        stringWriter.getBuffer().setLength(0);
-                    } else {
-                        for (Event event : events) {
-                            dataOfEvent = event.getData();
-                            CSVFormat.DEFAULT
-                                    .withDelimiter(delimiter)
-                                    .withNullString("null")
-                                    .withQuote('\"')
-                                    .printRecord(stringWriter, dataOfEvent);
-                            sinkListener.publish(stringWriter.toString());
-                            stringWriter.getBuffer().setLength(0);
-                        }
-                    }
-                }
-            } catch (IOException e) {
-                log.error("[ERROR] Fail to print the data in csv format from Siddhi event in the stream  '"
-                                  + streamDefinition.getId() + "' of siddhi CSV output mapper.", e);
+        try {
+            if (isAddHeader) {
+                CSVFormat.DEFAULT
+                        .withDelimiter(delimiter)
+                        .withNullString("null")
+                        .withQuote('\"')
+                        .printRecord(stringWriter, headerOfData);
+                sinkListener.publish(stringWriter.toString());
+                isAddHeader = false;
+                stringWriter.getBuffer().setLength(0);
             }
+            if (payloadTemplateBuilderMap != null && isValidateEntry.get()) { //custom mapping
+                if (eventGroupEnabled) {
+                    for (Event event : events) {
+                        for (int i = 0; i < headerOfData.length; i++) {
+                            dataOfEvent[i] = event.getData(streamDefinition.getAttributePosition(
+                                    headerOfData[i].toString()));
+                        }
+                        CSVFormat.DEFAULT
+                                .withDelimiter(delimiter)
+                                .withNullString("null")
+                                .withQuote('\"')
+                                .withRecordSeparator(System.lineSeparator())
+                                .printRecord(stringWriter, dataOfEvent);
+                    }
+                    sinkListener.publish(stringWriter.toString());
+                    stringWriter.getBuffer().setLength(0);
+                } else {
+                    for (Event event : events) {
+                        for (int i = 0; i < headerOfData.length; i++) {
+                            dataOfEvent[i] = event.getData(streamDefinition.getAttributePosition(
+                                    headerOfData[i].toString()));
+                        }
+                        CSVFormat.DEFAULT
+                                .withDelimiter(delimiter)
+                                .withNullString("null")
+                                .withQuote('\"')
+                                .printRecord(stringWriter, dataOfEvent);
+                        sinkListener.publish(stringWriter.toString());
+                        stringWriter.getBuffer().setLength(0);
+                    }
+                }
+            } else if (payloadTemplateBuilderMap == null) {
+                if (eventGroupEnabled) {
+                    for (Event event : events) {
+                        dataOfEvent = event.getData();
+                        CSVFormat.DEFAULT
+                                .withDelimiter(delimiter)
+                                .withNullString("null")
+                                .withQuote('\"')
+                                .withRecordSeparator(System.lineSeparator())
+                                .printRecord(stringWriter, dataOfEvent);
+                    }
+                    sinkListener.publish(stringWriter.toString());
+                    stringWriter.getBuffer().setLength(0);
+                } else {
+                    for (Event event : events) {
+                        dataOfEvent = event.getData();
+                        CSVFormat.DEFAULT
+                                .withDelimiter(delimiter)
+                                .withNullString("null")
+                                .withQuote('\"')
+                                .printRecord(stringWriter, dataOfEvent);
+                        sinkListener.publish(stringWriter.toString());
+                        stringWriter.getBuffer().setLength(0);
+                    }
+                }
+            }
+        } catch (IOException e) {
+            log.error("[ERROR] Fail to print the data in csv format from Siddhi event in the stream  '"
+                              + streamDefinition.getId() + "' of siddhi CSV output mapper.", e);
         }
+
     }
 
     /**
