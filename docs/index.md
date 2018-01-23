@@ -1,4 +1,5 @@
-# siddhi-map-csv
+﻿siddhi-map-csv
+======================================
 
 The **siddhi-map-csv extension** is an extension to <a target="_blank" href="https://wso2.github
 .io/siddhi">Siddhi</a> that provides the functionality to convert canonical events of the server in the WSO2Event format to any csv message format and convert events of any csv format to the server's canonical event format (WSO2Event) for processing.
@@ -12,6 +13,7 @@ Find some useful links below:
 
 ## Latest API Docs 
 
+Latest API Docs is <a target="_blank" href="https://wso2-extensions.github.io/siddhi-map-csv/api/1.0.0-SNAPSHOT">1.0.0-SNAPSHOT</a>.
 
 ## How to use 
 
@@ -34,7 +36,6 @@ Find some useful links below:
 ```
 
 ## Jenkins Build Status
-
 ---
 
 |  Branch | Build Status |
@@ -45,6 +46,8 @@ Find some useful links below:
 
 ## Features
 
+* <a target="_blank" href="https://wso2-extensions.github.io/siddhi-map-csv/api/1.0.0-SNAPSHOT/#csv-sink-mapper">csv</a> *(<a target="_blank" href="https://wso2.github.io/siddhi/documentation/siddhi-4.0/#sink-mapper">(Sink Mapper)</a>)*<br><div style="padding-left: 1em;"><p>This output mapper extension allows you to convert Siddhi events processed by the WSO2 SP to CSV message before publishing them. You can either use custom place order to map a custom CSV message or use pre-defined CSV format where event conversion takes place without extra configurations.</p></div>
+* <a target="_blank" href="https://wso2-extensions.github.io/siddhi-map-csv/api/1.0.0-SNAPSHOT/#csv-source-mapper">csv</a> *(<a target="_blank" href="https://wso2.github.io/siddhi/documentation/siddhi-4.0/#source-mapper">(Source Mapper)</a>)*<br><div style="padding-left: 1em;"><p>This extension is used to convert CSV message to Siddhi event input mapper. You can either receive pre-defined CSV message where event conversion takes place without extra configurations,or receive custom CSV message where a custom place order to map from custom CSV message.</p></div>
 
 ## How to Contribute
  
