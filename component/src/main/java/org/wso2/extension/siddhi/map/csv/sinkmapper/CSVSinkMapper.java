@@ -93,7 +93,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
                                 "define stream BarStream (symbol string, price float,volume long); ",
                         description = "Above configuration will perform a custom CSV mapping. Here, user can add " +
                                 "custom place order in the @payload. The place order indicates that where the " +
-                                "attribute name’s value will be appear in the output message, The output will be " +
+                                "attribute name's value will be appear in the output message, The output will be " +
                                 "produced output as follows:\n" +
                                 "WSO2,100,55.6\r\n" +
 

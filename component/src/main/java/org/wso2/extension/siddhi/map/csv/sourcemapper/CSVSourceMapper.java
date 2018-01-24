@@ -110,7 +110,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
                                 "define stream FooStream (symbol string, price float, volume long); ",
                         description = "Above configuration will perform a custom CSV mapping. Here, " +
                                 "user can add place order of each attribute in the @attribute. The place order " +
-                                "indicates where the attribute name’s value has appeared in the input." +
+                                "indicates where the attribute name's value has appeared in the input." +
                                 "Expected input will look like below:\n" +
                                 "55.6,100,WSO2\r\n" +
 
