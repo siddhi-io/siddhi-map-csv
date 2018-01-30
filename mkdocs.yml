@@ -13,7 +13,7 @@ google_analytics:
 - UA-103065-28
 - auto
 pages:
-- Welcome to WSO2 Siddhi Map Text: index.md
+- Welcome to WSO2 Siddhi Map CSV: index.md
 - API Docs:
   - latest: api/latest.md
 - License: license.md
