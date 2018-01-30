@@ -1,4 +1,4 @@
-# API Docs - v1.0.0-SNAPSHOT
+# API Docs - v1.0.1
 
 ## Sinkmapper
 
@@ -59,7 +59,7 @@ define stream BarStream (symbol string, price float, volume long);
 ```
 @sink(type='inMemory', topic='{{symbol}}', @map(type='csv',header='true',delimiter='-',@payload(symbol='0',price='2',volume='1')))define stream BarStream (symbol string, price float,volume long); 
 ```
-<p style="word-wrap: break-word">Above configuration will perform a custom CSV mapping. Here, user can add custom place order in the @payload. The place order indicates that where the attribute name’s value will be appear in the output message, The output will be produced output as follows:<br>WSO2,100,55.6<br>If header is true and delimiter is "-", then the output will be as follows:<br>symbol-price-volume<br>WSO2-55.6-100<br>If event grouping is enabled, then the output is as follows:<br>WSO2-55.6-100System.lineSeparator()<br>WSO2-55.6-100System.lineSeparator()<br>WSO2-55.6-100System.lineSeparator()<br></p>
+<p style="word-wrap: break-word">Above configuration will perform a custom CSV mapping. Here, user can add custom place order in the @payload. The place order indicates that where the attribute name's value will be appear in the output message, The output will be produced output as follows:<br>WSO2,100,55.6<br>If header is true and delimiter is "-", then the output will be as follows:<br>symbol-price-volume<br>WSO2-55.6-100<br>If event grouping is enabled, then the output is as follows:<br>WSO2-55.6-100System.lineSeparator()<br>WSO2-55.6-100System.lineSeparator()<br>WSO2-55.6-100System.lineSeparator()<br></p>
 
 ## Sourcemapper
 
@@ -129,5 +129,5 @@ define stream BarStream (symbol string, price float, volume long);
 @source(type='inMemory', topic='stock', @map(type='csv',header='true', @attributes(symbol = "2", price = "0", volume = "1")))
 define stream FooStream (symbol string, price float, volume long); 
 ```
-<p style="word-wrap: break-word">Above configuration will perform a custom CSV mapping. Here, user can add place order of each attribute in the @attribute. The place order indicates where the attribute name’s value has appeared in the input.Expected input will look like below:<br>55.6,100,WSO2<br>OR55.6,100,"WSO2,No10,Palm Groove Rd,Col-03"<br>If header is true and delimiter is "-", then the output is as follows:<br>price-volume-symbol<br>55.6-100-WSO2<br>If group events is enabled then input should be as follows:<br>price-volume-symbol<br>55.6-100-WSO2System.lineSeparator()<br>55.6-100-IBMSystem.lineSeparator()<br>55.6-100-IFSSystem.lineSeparator()<br></p>
+<p style="word-wrap: break-word">Above configuration will perform a custom CSV mapping. Here, user can add place order of each attribute in the @attribute. The place order indicates where the attribute name's value has appeared in the input.Expected input will look like below:<br>55.6,100,WSO2<br>OR55.6,100,"WSO2,No10,Palm Groove Rd,Col-03"<br>If header is true and delimiter is "-", then the output is as follows:<br>price-volume-symbol<br>55.6-100-WSO2<br>If group events is enabled then input should be as follows:<br>price-volume-symbol<br>55.6-100-WSO2System.lineSeparator()<br>55.6-100-IBMSystem.lineSeparator()<br>55.6-100-IFSSystem.lineSeparator()<br></p>
 
