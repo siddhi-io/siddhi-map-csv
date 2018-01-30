@@ -68,6 +68,7 @@
                     <plugin>
                         <groupId>org.wso2.siddhi</groupId>
                         <artifactId>siddhi-doc-gen</artifactId>
+                        <version>${siddhi.version}</version>
                         <executions>
                             <execution>
                                 <phase>compile</phase>
@@ -111,13 +112,12 @@
                     <suiteXmlFiles>
                         <suiteXmlFile>src/test/resources/testng.xml</suiteXmlFile>
                     </suiteXmlFiles>
-                    <argLine>${surefireArgLine}</argLine>
+                    <argLine>${surefireArgLine} -ea -Xmx512m</argLine>
                 </configuration>
             </plugin>
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>${jacoco.version}</version>
                 <executions>
                     <execution>
                         <id>jacoco-initialize</id>
@@ -125,7 +125,7 @@
                             <goal>prepare-agent</goal>
                         </goals>
                         <configuration>
-                            <destFile>${basedir}/target/coverage-reports/jacoco.exec</destFile>
+                            <destFile>${basedir}/target/jacoco.exec</destFile>
                             <propertyName>surefireArgLine</propertyName>
                         </configuration>
                     </execution>
@@ -136,7 +136,7 @@
                             <goal>report</goal>
                         </goals>
                         <configuration>
-                            <dataFile>${basedir}/target/coverage-reports/jacoco.exec</dataFile>
+                            <dataFile>${basedir}/target/jacoco.exec</dataFile>
                             <outputDirectory>${basedir}/target/coverage-reports/</outputDirectory>
                         </configuration>
                     </execution>
@@ -145,6 +145,7 @@
             <plugin>
                 <groupId>org.wso2.siddhi</groupId>
                 <artifactId>siddhi-doc-gen</artifactId>
+                <version>${siddhi.version}</version>
                 <executions>
                     <execution>
                         <phase>compile</phase>
