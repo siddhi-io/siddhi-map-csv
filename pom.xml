@@ -30,7 +30,7 @@
 
     <groupId>org.wso2.extension.siddhi.map.csv</groupId>
     <artifactId>siddhi-map-csv-parent</artifactId>
-    <version>1.0.3-SNAPSHOT</version>
+    <version>1.0.3</version>
     <name>Siddhi CSV - Map Extension</name>
 
     <modules>
@@ -122,6 +122,6 @@
         <url>https://github.com/wso2-extensions/siddhi-map-csv.git</url>
         <developerConnection>scm:git:https://github.com/wso2-extensions/siddhi-map-csv.git
         </developerConnection>
-        <tag>HEAD</tag>
+        <tag>v1.0.3</tag>
     </scm>
 </project>
