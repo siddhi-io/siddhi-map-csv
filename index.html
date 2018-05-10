@@ -1,7 +1,4 @@
 
-
-
-
 <!DOCTYPE html>
 <html lang="en" class="no-js">
   <head>
@@ -13,22 +10,9 @@
       
       
       
-        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+        <link rel="shortcut icon" href="./images/favicon.ico">
       
-        <meta name="lang:clipboard.copied" content="Copied to clipboard">
-      
-        <meta name="lang:search.language" content="en">
-      
-        <meta name="lang:search.result.none" content="No matching documents">
-      
-        <meta name="lang:search.result.one" content="1 matching document">
-      
-        <meta name="lang:search.result.other" content="# matching documents">
-      
-        <meta name="lang:search.tokenizer" content="[\s\-]+">
-      
-      <link rel="shortcut icon" href="./images/favicon.ico">
-      <meta name="generator" content="mkdocs-0.17.2, mkdocs-material-2.4.0">
+      <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.10.3">
     
     
       
@@ -36,16 +20,19 @@
       
     
     
-      <link rel="stylesheet" href="./assets/stylesheets/application.7fb6a6f0.css">
+      <script src="./assets/javascripts/modernizr-e826f8942a.js"></script>
+    
+    
+      <link rel="stylesheet" href="./assets/stylesheets/application-9011e2d3f8.css">
       
-        <link rel="stylesheet" href="./assets/stylesheets/application-palette.792431c1.css">
+        <link rel="stylesheet" href="./assets/stylesheets/application-23f75ab9c7.palette.css">
       
     
     
-      <script src="./assets/javascripts/modernizr.1aa3b519.js"></script>
-    
-    
       
+        
+        
+        
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
         <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
       
@@ -57,11 +44,10 @@
     
   </head>
   
-    
-    
-    
-      <body data-md-color-primary="teal" data-md-color-accent="teal">
-    
+  
+  
+  
+    <body data-md-color-primary="teal" data-md-color-accent="teal">
   
     <svg class="md-svg">
       <defs>
@@ -79,7 +65,9 @@
       <div class="md-flex__cell md-flex__cell--shrink">
         <a href="." title="Siddhi-Map-CSV" class="md-header-nav__button md-logo">
           
-            <img src="./images/siddhi-logo-w.svg" width="24" height="24">
+            
+              <img src="./images/siddhi-logo-w.svg" width="24" height="24">
+            
           
         </a>
       </div>
@@ -87,38 +75,31 @@
         <label class="md-icon md-icon--menu md-header-nav__button" for="drawer"></label>
       </div>
       <div class="md-flex__cell md-flex__cell--stretch">
-        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+        <span class="md-flex__ellipsis md-header-nav__title">
           
             
-              <span class="md-header-nav__topic">
-                Siddhi-Map-CSV
-              </span>
-              <span class="md-header-nav__topic">
-                Welcome to WSO2 Siddhi Map CSV
-              </span>
+              
             
+            Welcome to WSO2 Siddhi Map CSV
           
-        </div>
+        </span>
       </div>
       <div class="md-flex__cell md-flex__cell--shrink">
         
+          <label class="md-icon md-icon--search md-header-nav__button" for="search"></label>
           
-            <label class="md-icon md-icon--search md-header-nav__button" for="search"></label>
-            
 <div class="md-search" data-md-component="search" role="dialog">
   <label class="md-search__overlay" for="search"></label>
-  <div class="md-search__inner" role="search">
+  <div class="md-search__inner">
     <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <input type="text" class="md-search__input" name="query" required placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query">
       <label class="md-icon md-search__icon" for="search"></label>
-      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
-        &#xE5CD;
-      </button>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset">&#xE5CD;</button>
     </form>
     <div class="md-search__output">
       <div class="md-search__scrollwrap" data-md-scrollfix>
-        <div class="md-search-result" data-md-component="result">
-          <div class="md-search-result__meta">
+        <div class="md-search-result" data-md-component="result" data-md-lang-search="" data-md-lang-tokenizer="[\s\-]+">
+          <div class="md-search-result__meta" data-md-lang-result-none="No matching documents" data-md-lang-result-one="1 matching document" data-md-lang-result-other="# matching documents">
             Type to start searching
           </div>
           <ol class="md-search-result__list"></ol>
@@ -127,7 +108,6 @@
     </div>
   </div>
 </div>
-          
         
       </div>
       
@@ -137,7 +117,6 @@
     
     <div class="md-container">
       
-        
       
       
       <main class="md-main">
@@ -149,11 +128,13 @@
                   <div class="md-sidebar__inner">
                     <nav class="md-nav md-nav--primary" data-md-level="0">
   <label class="md-nav__title md-nav__title--site" for="drawer">
-    <span class="md-nav__button md-logo">
+    <div class="md-nav__button md-logo">
       
-        <img src="./images/siddhi-logo-w.svg" width="24" height="24">
+        
+          <img src="./images/siddhi-logo-w.svg">
+        
       
-    </span>
+    </div>
     Siddhi-Map-CSV
   </label>
   
@@ -267,6 +248,18 @@
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
         
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="api/1.0.4/" title="1.0.4" class="md-nav__link">
+      1.0.4
+    </a>
+  </li>
+
         
           
           
@@ -419,7 +412,7 @@
                 
                 <h1 id="siddhi-map-csv">siddhi-map-csv</h1>
 <p>The <strong>siddhi-map-csv extension</strong> is an extension to <a target="_blank" href="https://wso2.github
-.io/siddhi">Siddhi</a> that provides the functionality to convert canonical events of the server in the WSO2Event format to any csv message format and convert events of any csv format to the server's canonical event format (WSO2Event) for processing.</p>
+.io/siddhi">Siddhi</a> that supports mapping incoming events with csv format to a stream at the source, and mapping a stream to csv format events at the sink.</p>
 <p>Find some useful links below:</p>
 <ul>
 <li><a target="_blank" href="https://github.com/wso2-extensions/siddhi-map-csv">Source code</a></li>
@@ -427,7 +420,7 @@
 <li><a target="_blank" href="https://github.com/wso2-extensions/siddhi-map-csv/issues">Issue tracker</a></li>
 </ul>
 <h2 id="latest-api-docs">Latest API Docs</h2>
-<p>Latest API Docs is <a target="_blank" href="https://wso2-extensions.github.io/siddhi-map-csv/api/1.0.3">1.0.3</a>.</p>
+<p>Latest API Docs is <a target="_blank" href="https://wso2-extensions.github.io/siddhi-map-csv/api/1.0.4">1.0.4</a>.</p>
 <h2 id="how-to-use">How to use</h2>
 <p><strong>Using the extension in <a target="_blank" href="https://github.com/wso2/product-sp">WSO2 Stream Processor</a></strong></p>
 <ul>
@@ -468,8 +461,8 @@
 <hr />
 <h2 id="features">Features</h2>
 <ul>
-<li><a target="_blank" href="https://wso2-extensions.github.io/siddhi-map-csv/api/1.0.3/#csv-sink-mapper">csv</a> <em>(<a target="_blank" href="https://wso2.github.io/siddhi/documentation/siddhi-4.0/#sink-mapper">(Sink Mapper)</a>)</em><br><div style="padding-left: 1em;"><p>This output mapper extension allows you to convert Siddhi events processed by the WSO2 SP to CSV message before publishing them. You can either use custom placeholder to map a custom CSV message or use pre-defined CSV format where event conversion takes place without extra configurations.</p></div></li>
-<li><a target="_blank" href="https://wso2-extensions.github.io/siddhi-map-csv/api/1.0.3/#csv-source-mapper">csv</a> <em>(<a target="_blank" href="https://wso2.github.io/siddhi/documentation/siddhi-4.0/#source-mapper">(Source Mapper)</a>)</em><br><div style="padding-left: 1em;"><p>This extension is used to convert CSV message to Siddhi event input mapper. You can either receive pre-defined CSV message where event conversion takes place without extra configurations,or receive custom CSV message where a custom place order to map from custom CSV message.</p></div></li>
+<li><a target="_blank" href="https://wso2-extensions.github.io/siddhi-map-csv/api/1.0.4/#csv-sink-mapper">csv</a> <em>(<a target="_blank" href="https://wso2.github.io/siddhi/documentation/siddhi-4.0/#sink-mapper">(Sink Mapper)</a>)</em><br><div style="padding-left: 1em;"><p>This output mapper extension allows you to convert Siddhi events processed by the WSO2 SP to CSV message before publishing them. You can either use custom placeholder to map a custom CSV message or use pre-defined CSV format where event conversion takes place without extra configurations.</p></div></li>
+<li><a target="_blank" href="https://wso2-extensions.github.io/siddhi-map-csv/api/1.0.4/#csv-source-mapper">csv</a> <em>(<a target="_blank" href="https://wso2.github.io/siddhi/documentation/siddhi-4.0/#source-mapper">(Source Mapper)</a>)</em><br><div style="padding-left: 1em;"><p>This extension is used to convert CSV message to Siddhi event input mapper. You can either receive pre-defined CSV message where event conversion takes place without extra configurations,or receive custom CSV message where a custom place order to map from custom CSV message.</p></div></li>
 </ul>
 <h2 id="how-to-contribute">How to Contribute</h2>
 <ul>
@@ -519,13 +512,13 @@
       <nav class="md-footer-nav__inner md-grid">
         
         
-          <a href="api/1.0.3/" title="1.0.3" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="api/1.0.4/" title="1.0.4" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                1.0.3
+                1.0.4
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">
@@ -541,9 +534,9 @@
       <div class="md-footer-copyright">
         
         powered by
-        <a href="http://www.mkdocs.org">MkDocs</a>
+        <a href="http://www.mkdocs.org" title="MkDocs">MkDocs</a>
         and
-        <a href="https://squidfunk.github.io/mkdocs-material/">
+        <a href="http://squidfunk.github.io/mkdocs-material/" title="Material for MkDocs">
           Material for MkDocs</a>
       </div>
       
@@ -555,16 +548,17 @@
       
     </div>
     
-      <script src="./assets/javascripts/application.ce2ab4bf.js"></script>
+      <script src="./assets/javascripts/application-f3ab9e5ff8.js"></script>
       
-      <script>app.initialize({version:"0.17.2",url:{base:"."}})</script>
+      
+      <script>app.initialize({url:{base:"."}})</script>
       
         <script src="./javascripts/extra.js"></script>
       
     
     
       
-        <script>!function(e,a,t,n,o,c,i){e.GoogleAnalyticsObject=o,e.ga=e.ga||function(){(e.ga.q=e.ga.q||[]).push(arguments)},e.ga.l=1*new Date,c=a.createElement(t),i=a.getElementsByTagName(t)[0],c.async=1,c.src="https://www.google-analytics.com/analytics.js",i.parentNode.insertBefore(c,i)}(window,document,"script",0,"ga"),ga("create","UA-103065-28","auto"),ga("set","anonymizeIp",!0),ga("send","pageview");var links=document.getElementsByTagName("a");Array.prototype.map.call(links,function(e){e.host!=document.location.host&&e.addEventListener("click",function(){var a=e.getAttribute("data-md-action")||"follow";ga("send","event","outbound",a,e.href)})});var query=document.forms.search.query;query.addEventListener("blur",function(){if(this.value){var e=document.location.pathname;ga("send","pageview",e+"?q="+this.value)}})</script>
+      <script>!function(e,t,a,n,o,c,i){e.GoogleAnalyticsObject=o,e[o]=e[o]||function(){(e[o].q=e[o].q||[]).push(arguments)},e[o].l=1*new Date,c=t.createElement(a),i=t.getElementsByTagName(a)[0],c.async=1,c.src=n,i.parentNode.insertBefore(c,i)}(window,document,"script","https://www.google-analytics.com/analytics.js","ga"),ga("create","UA-103065-28","auto"),ga("set","anonymizeIp",!0),ga("send","pageview");var links=document.getElementsByTagName("a");Array.prototype.map.call(links,function(e){e.host!=document.location.host&&e.addEventListener("click",function(){var t=e.getAttribute("data-md-action")||"follow";ga("send","event","outbound",t,e.href)})});var query=document.forms.search.query;query.addEventListener("blur",function(){if(this.value){var e=document.location.pathname;ga("send","pageview",e+"?q="+this.value)}})</script>
       
     
   </body>
