@@ -1,7 +1,7 @@
 # siddhi-map-csv
 
 The **siddhi-map-csv extension** is an extension to <a target="_blank" href="https://wso2.github
-.io/siddhi">Siddhi</a> that provides the functionality to convert canonical events of the server in the WSO2Event format to any csv message format and convert events of any csv format to the server's canonical event format (WSO2Event) for processing.
+.io/siddhi">Siddhi</a> that supports mapping incoming events with csv format to a stream at the source, and mapping a stream to csv format events at the sink.
 
 Find some useful links below:
 
