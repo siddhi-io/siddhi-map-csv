@@ -26,6 +26,7 @@ import org.wso2.siddhi.core.SiddhiAppRuntime;
 import org.wso2.siddhi.core.SiddhiManager;
 import org.wso2.siddhi.core.event.Event;
 import org.wso2.siddhi.core.stream.output.StreamCallback;
+import org.wso2.siddhi.core.util.EventPrinter;
 import org.wso2.siddhi.core.util.SiddhiTestHelper;
 import org.wso2.siddhi.core.util.transport.InMemoryBroker;
 
@@ -320,6 +321,55 @@ public class TestCaseOfCSVSourceMapper {
     }
 
     @Test
+    public void testInputCustomMappingwithfailunknownattribute1() throws InterruptedException {
+        log.info("____________Test case for csv default mapping with fail.on.unknown.attribute1______________");
+
+        String streams = "" +
+                "@App:name('TestSiddhiApp')" +
+                "@source(type='inMemory', topic='stock', @map(type='csv',fail.on.unknown.attribute=\"true\"," +
+                "@attributes(symbol=\"2\",price =\"0\",volume =\"1\"))) " +
+                "define stream FooStream (symbol string, price float, volume int); " +
+                "define stream BarStream (symbol string, price float, volume int); ";
+
+        String query = "" +
+                "from FooStream " +
+                "select * " +
+                "insert into BarStream; ";
+
+        SiddhiManager siddhiManager = new SiddhiManager();
+        SiddhiAppRuntime executionPlanRuntime = siddhiManager.createSiddhiAppRuntime(streams + query);
+
+        executionPlanRuntime.addCallback("BarStream", new StreamCallback() {
+
+            @Override
+            public void receive(Event[] events) {
+                EventPrinter.print(events);
+                for (Event event : events) {
+                    switch (count.incrementAndGet()) {
+                        case 1:
+                            assertEquals(55.689f, event.getData(1));
+                            assertEquals("null", event.getData(0));
+                            break;
+                        default:
+                            fail();
+                    }
+                }
+            }
+        });
+        executionPlanRuntime.start();
+        InMemoryBroker.publish("stock", "55.689,100,null");
+        InMemoryBroker.publish("stock", "75, ,IBM@#$%^*");
+        InMemoryBroker.publish("stock", ",10,WSO2");
+        InMemoryBroker.publish("stock", " 55.6,aa,WSO2");
+        SiddhiTestHelper.waitForEvents(waitTime, 1, count, timeout);
+        //assert event count
+        AssertJUnit.assertEquals("Number of events", 1, count.get());
+        executionPlanRuntime.shutdown();
+        siddhiManager.shutdown();
+    }
+
+
+    @Test
     public void testTextCustomSourceMapperEventGroup() throws InterruptedException {
         log.info("Test for custom mapping for event grouping");
         String streams = "" +
@@ -404,5 +454,138 @@ public class TestCaseOfCSVSourceMapper {
         SiddhiManager siddhiManager = new SiddhiManager();
         siddhiManager.createSiddhiAppRuntime(streams + query);
         siddhiManager.shutdown();
+    }
+
+    @Test
+    public void testTextCustomSourceMapperEventGroup1() throws InterruptedException {
+        log.info("Test for custom mapping for event grouping1");
+        String streams = "" +
+                "@App:name('TestSiddhiApp')" +
+                "@source(type='inMemory', topic='stock', @map(type='csv'," +
+                "event.grouping.enabled='true'," +
+                "@attributes(\"0\",\"2\",\"1\"))) " +
+                "define stream FooStream (symbol string, price float, volume long); " +
+                "define stream BarStream (symbol string, price float, volume long); ";
+
+        String query = "" +
+                "from FooStream " +
+                "select * " +
+                "insert into BarStream; ";
+
+        SiddhiManager siddhiManager = new SiddhiManager();
+        SiddhiAppRuntime siddhiAppRuntime = siddhiManager.createSiddhiAppRuntime(streams + query);
+
+        siddhiAppRuntime.addCallback("BarStream", new StreamCallback() {
+
+            @Override
+            public void receive(Event[] events) {
+                org.wso2.siddhi.core.util.EventPrinter.print(events);
+                for (Event event : events) {
+                    switch (count.incrementAndGet()) {
+                        case 1:
+                            assertEquals(event.getData(2), 110L);
+                            break;
+                        case 2:
+                            assertEquals(event.getData(2), 120L);
+                            break;
+                        case 3:
+                            assertEquals(event.getData(2), 130L);
+                            break;
+                        case 4:
+                            assertEquals(event.getData(2), 140L);
+                            break;
+                        case 5:
+                            assertEquals(event.getData(2), 150L);
+                            break;
+                        case 6:
+                            assertEquals(event.getData(2), 160L);
+                            break;
+                        default:
+                            fail();
+                    }
+                }
+            }
+        });
+
+        siddhiAppRuntime.start();
+        String event1 = "WSO2,110,55.6" + System.lineSeparator() +
+                "IBM,120,55.6" + System.lineSeparator() +
+                "IFS,130,55.6" + System.lineSeparator();
+        String event2 = "WSO2,140,55.6" + System.lineSeparator() +
+                "IBM,150,55.6" + System.lineSeparator() +
+                "IFS,160,55.6" + System.lineSeparator();
+        InMemoryBroker.publish("stock", event1);
+        InMemoryBroker.publish("stock", event2);
+        SiddhiTestHelper.waitForEvents(waitTime, 6, count, timeout);
+        //assert event count
+        assertEquals(count.get(), 6);
+        siddhiAppRuntime.shutdown();
+    }
+
+    @Test
+    public void testTextCustomSourceMapperEventGroupTrp2() throws InterruptedException {
+        log.info("Test for custom mapping for event grouping2");
+        String streams = "" +
+                "@App:name('TestSiddhiApp')" +
+                "@source(type='testTrpInMemory', topic='stock', prop1='foo', prop2='bar', @map(type='csv'," +
+                "event.grouping.enabled='true'," +
+                "@attributes('trp:symbol',\"2\",\"1\"))) " +
+                "define stream FooStream (symbol string, price float, volume long); " +
+                "define stream BarStream (symbol string, price float, volume long); ";
+
+        String query = "" +
+                "from FooStream " +
+                "select * " +
+                "insert into BarStream; ";
+
+        SiddhiManager siddhiManager = new SiddhiManager();
+        SiddhiAppRuntime siddhiAppRuntime = siddhiManager.createSiddhiAppRuntime(streams + query);
+
+        siddhiAppRuntime.addCallback("BarStream", new StreamCallback() {
+
+            @Override
+            public void receive(Event[] events) {
+                org.wso2.siddhi.core.util.EventPrinter.print(events);
+                for (Event event : events) {
+                    assertEquals("foo", event.getData(0));
+                    switch (count.incrementAndGet()) {
+                        case 1:
+                            assertEquals(event.getData(2), 110L);
+                            break;
+                        case 2:
+                            assertEquals(event.getData(2), 120L);
+                            break;
+                        case 3:
+                            assertEquals(event.getData(2), 130L);
+                            break;
+                        case 4:
+                            assertEquals(event.getData(2), 140L);
+                            break;
+                        case 5:
+                            assertEquals(event.getData(2), 150L);
+                            break;
+                        case 6:
+                            assertEquals(event.getData(2), 160L);
+                            break;
+                        default:
+                            fail();
+                    }
+                }
+            }
+        });
+
+        siddhiAppRuntime.start();
+        String event1 = "WSO2,110,55.6" + System.lineSeparator() +
+                "IBM,120,55.6" + System.lineSeparator() +
+                "IFS,130,55.6" + System.lineSeparator();
+        String event2 = "WSO2,140,55.6" + System.lineSeparator() +
+                "IBM,150,55.6" + System.lineSeparator() +
+                "IFS,160,55.6" + System.lineSeparator();
+        InMemoryBroker.publish("stock", event1);
+        InMemoryBroker.publish("stock", event2);
+        SiddhiTestHelper.waitForEvents(waitTime, 6, count, timeout);
+        //assert event count
+        assertEquals(count.get(), 6);
+        siddhiAppRuntime.shutdown();
     }
 }
