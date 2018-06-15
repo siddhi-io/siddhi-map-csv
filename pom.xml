@@ -110,7 +110,7 @@
         </plugins>
     </build>
     <properties>
-        <siddhi.version>4.1.28</siddhi.version>
+        <siddhi.version>4.1.43</siddhi.version>
         <log4j.version>1.2.17.wso2v1</log4j.version>
         <testng.version>6.8</testng.version>
         <commons.csv.version>1.4</commons.csv.version>
