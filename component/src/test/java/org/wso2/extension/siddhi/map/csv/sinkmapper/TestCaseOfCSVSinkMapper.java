@@ -119,13 +119,13 @@ public class TestCaseOfCSVSinkMapper {
         AssertJUnit.assertEquals("Incorrect number of events consumed!", 2, wso2Count.get());
         //AssertJUnit.assertEquals("Incorrect number of events consumed!", 2, ibmCount.get());
         //assert default mapping
-        AssertJUnit.assertEquals("Incorrect mapping!", "WSO2,55.645,100\r\n",
+        AssertJUnit.assertEquals("Incorrect mapping!", "WSO2,55.645,100" + System.lineSeparator(),
                                  onMessageList.get(0).toString());
-        AssertJUnit.assertEquals("Incorrect mapping!", "IBM,75.0,100\r\n",
+        AssertJUnit.assertEquals("Incorrect mapping!", "IBM,75.0,100" + System.lineSeparator(),
                                  onMessageList.get(1).toString());
-        AssertJUnit.assertEquals("Incorrect mapping!", "WSO2,57.6,100\r\n",
+        AssertJUnit.assertEquals("Incorrect mapping!", "WSO2,57.6,100" + System.lineSeparator(),
                                  onMessageList.get(2).toString());
-        AssertJUnit.assertEquals("Incorrect mapping!", "IBM,null,57\r\n",
+        AssertJUnit.assertEquals("Incorrect mapping!", "IBM,null,57" + System.lineSeparator(),
                                  onMessageList.get(3).toString());
         executionPlanRuntime.shutdown();
 
@@ -176,14 +176,14 @@ public class TestCaseOfCSVSinkMapper {
         //assert event count
         AssertJUnit.assertEquals("Incorrect number of events consumed!", 4, companyCount.get());
 
-        AssertJUnit.assertEquals("Incorrect mapping!", "\"WSO2,NO10,Palam groove Rd\",55.645,100\r\n"
-                , onMessageList.get(0).toString());
-        AssertJUnit.assertEquals("Incorrect mapping!", "\"IBM,Colombo 7\",75.0,100\r\n",
-                                 onMessageList.get(1).toString());
-        AssertJUnit.assertEquals("Incorrect mapping!", "\"WSO2,Colombo 10\",57.6,100\r\n",
-                                 onMessageList.get(2).toString());
-        AssertJUnit.assertEquals("Incorrect mapping!", "\"IBM,Colombo 3\",null,57\r\n",
-                                 onMessageList.get(3).toString());
+        AssertJUnit.assertEquals("Incorrect mapping!", "\"WSO2,NO10,Palam groove Rd\",55.645,100" +
+                        System.lineSeparator(), onMessageList.get(0).toString());
+        AssertJUnit.assertEquals("Incorrect mapping!", "\"IBM,Colombo 7\",75.0,100" +
+                        System.lineSeparator(), onMessageList.get(1).toString());
+        AssertJUnit.assertEquals("Incorrect mapping!", "\"WSO2,Colombo 10\",57.6,100" +
+                        System.lineSeparator(), onMessageList.get(2).toString());
+        AssertJUnit.assertEquals("Incorrect mapping!", "\"IBM,Colombo 3\",null,57" +
+                        System.lineSeparator(), onMessageList.get(3).toString());
         executionPlanRuntime.shutdown();
         InMemoryBroker.unsubscribe(subscriberCompany);
         siddhiManager.shutdown();
@@ -231,11 +231,11 @@ public class TestCaseOfCSVSinkMapper {
         //assert event count
         AssertJUnit.assertEquals("Incorrect number of events consumed!", 3, companyCount.get());
         //assert default mapping
-        AssertJUnit.assertEquals("Incorrect mapping!", "WSO2#@$,55.6,100\r\n",
+        AssertJUnit.assertEquals("Incorrect mapping!", "WSO2#@$,55.6,100" + System.lineSeparator(),
                                  onMessageList.get(0).toString());
-        AssertJUnit.assertEquals("Incorrect mapping!", "IBM,75.6,100\r\n",
+        AssertJUnit.assertEquals("Incorrect mapping!", "IBM,75.6,100" + System.lineSeparator(),
                                  onMessageList.get(1).toString());
-        AssertJUnit.assertEquals("Incorrect mapping!", "null,null,100\r\n"
+        AssertJUnit.assertEquals("Incorrect mapping!", "null,null,100" + System.lineSeparator()
                 , onMessageList.get(2).toString());
         executionPlanRuntime.shutdown();
 
@@ -301,11 +301,11 @@ public class TestCaseOfCSVSinkMapper {
         AssertJUnit.assertEquals("Incorrect number of events consumed!", 2, wso2Count.get());
         AssertJUnit.assertEquals("Incorrect number of events consumed!", 1, ibmCount.get());
         //assert default mapping
-        AssertJUnit.assertEquals("Incorrect mapping!", "WSO2,55.6,null\r\n"
+        AssertJUnit.assertEquals("Incorrect mapping!", "WSO2,55.6,null" + System.lineSeparator()
                 , onMessageList.get(0).toString());
-        AssertJUnit.assertEquals("Incorrect mapping!", "IBM,null,100\r\n"
+        AssertJUnit.assertEquals("Incorrect mapping!", "IBM,null,100" + System.lineSeparator()
                 , onMessageList.get(1).toString());
-        AssertJUnit.assertEquals("Incorrect mapping!", "WSO2,57.6,100\r\n"
+        AssertJUnit.assertEquals("Incorrect mapping!", "WSO2,57.6,100" + System.lineSeparator()
                 , onMessageList.get(2).toString());
         executionPlanRuntime.shutdown();
 
@@ -375,15 +375,15 @@ public class TestCaseOfCSVSinkMapper {
         AssertJUnit.assertEquals("Incorrect number of events consumed!", 3, wso2Count.get());
         AssertJUnit.assertEquals("Incorrect number of events consumed!", 2, ibmCount.get());
         //assert default mapping
-        AssertJUnit.assertEquals("Incorrect mapping!", "symbol-price-volume\r\n"
+        AssertJUnit.assertEquals("Incorrect mapping!", "symbol-price-volume" + System.lineSeparator()
                 , onMessageList.get(0).toString());
-        AssertJUnit.assertEquals("Incorrect mapping!", "WSO2-55.645-100\r\n"
+        AssertJUnit.assertEquals("Incorrect mapping!", "WSO2-55.645-100" + System.lineSeparator()
                 , onMessageList.get(1).toString());
-        AssertJUnit.assertEquals("Incorrect mapping!", "IBM-75.0-100\r\n"
+        AssertJUnit.assertEquals("Incorrect mapping!", "IBM-75.0-100" + System.lineSeparator()
                 , onMessageList.get(2).toString());
-        AssertJUnit.assertEquals("Incorrect mapping!", "WSO2-57.6-100\r\n"
+        AssertJUnit.assertEquals("Incorrect mapping!", "WSO2-57.6-100" + System.lineSeparator()
                 , onMessageList.get(3).toString());
-        AssertJUnit.assertEquals("Incorrect mapping!", "IBM-null-57\r\n"
+        AssertJUnit.assertEquals("Incorrect mapping!", "IBM-null-57" + System.lineSeparator()
                 , onMessageList.get(4).toString());
         executionPlanRuntime.shutdown();
 
@@ -474,11 +474,11 @@ public class TestCaseOfCSVSinkMapper {
         AssertJUnit.assertEquals("Incorrect number of events consumed!", 2, wso2Count.get());
         AssertJUnit.assertEquals("Incorrect number of events consumed!", 1, ibmCount.get());
         //assert default mapping
-        AssertJUnit.assertEquals("Incorrect mapping!", "WSO2-55.6-100\r\n",
+        AssertJUnit.assertEquals("Incorrect mapping!", "WSO2-55.6-100" + System.lineSeparator(),
                                  onMessageList.get(0).toString());
-        AssertJUnit.assertEquals("Incorrect mapping!", "IBM-75.6-100\r\n",
+        AssertJUnit.assertEquals("Incorrect mapping!", "IBM-75.6-100" + System.lineSeparator(),
                                  onMessageList.get(1).toString());
-        AssertJUnit.assertEquals("Incorrect mapping!", "WSO2-57.6-100\r\n",
+        AssertJUnit.assertEquals("Incorrect mapping!", "WSO2-57.6-100" + System.lineSeparator(),
                                  onMessageList.get(2).toString());
         executionPlanRuntime.shutdown();
 
@@ -550,11 +550,11 @@ public class TestCaseOfCSVSinkMapper {
         AssertJUnit.assertEquals("Incorrect number of events consumed!", 2, wso2Count.get());
         AssertJUnit.assertEquals("Incorrect number of events consumed!", 1, ibmCount.get());
         //assert custom csv
-        AssertJUnit.assertEquals("Incorrect mapping!", "WSO2,100,55.6\r\n"
+        AssertJUnit.assertEquals("Incorrect mapping!", "WSO2,100,55.6" + System.lineSeparator()
                 , onMessageList.get(0).toString());
-        AssertJUnit.assertEquals("Incorrect mapping!", "IBM,100,75.6\r\n"
+        AssertJUnit.assertEquals("Incorrect mapping!", "IBM,100,75.6" + System.lineSeparator()
                 , onMessageList.get(1).toString());
-        AssertJUnit.assertEquals("Incorrect mapping!", "WSO2,100,57.6\r\n"
+        AssertJUnit.assertEquals("Incorrect mapping!", "WSO2,100,57.6" + System.lineSeparator()
                 , onMessageList.get(2).toString());
         executionPlanRuntime.shutdown();
 
@@ -609,11 +609,11 @@ public class TestCaseOfCSVSinkMapper {
         //assert event count
         AssertJUnit.assertEquals("Incorrect number of events consumed!", 3, companyCount.get());
         //assert default mapping
-        AssertJUnit.assertEquals("Incorrect mapping!", "WSO2#@$,100,55.6\r\n",
+        AssertJUnit.assertEquals("Incorrect mapping!", "WSO2#@$,100,55.6" + System.lineSeparator(),
                                  onMessageList.get(0).toString());
-        AssertJUnit.assertEquals("Incorrect mapping!", "IBM,100,75.6\r\n",
+        AssertJUnit.assertEquals("Incorrect mapping!", "IBM,100,75.6" + System.lineSeparator(),
                                  onMessageList.get(1).toString());
-        AssertJUnit.assertEquals("Incorrect mapping!", "null,100,null\r\n"
+        AssertJUnit.assertEquals("Incorrect mapping!", "null,100,null" + System.lineSeparator()
                 , onMessageList.get(2).toString());
         executionPlanRuntime.shutdown();
 
@@ -681,11 +681,11 @@ public class TestCaseOfCSVSinkMapper {
         AssertJUnit.assertEquals("Incorrect number of events consumed!", 2, wso2Count.get());
         AssertJUnit.assertEquals("Incorrect number of events consumed!", 1, ibmCount.get());
         //assert custom csv
-        AssertJUnit.assertEquals("Incorrect mapping!", "WSO2-100-55.6\r\n"
+        AssertJUnit.assertEquals("Incorrect mapping!", "WSO2-100-55.6" + System.lineSeparator()
                 , onMessageList.get(0).toString());
-        AssertJUnit.assertEquals("Incorrect mapping!", "IBM-100-75.6\r\n"
+        AssertJUnit.assertEquals("Incorrect mapping!", "IBM-100-75.6" + System.lineSeparator()
                 , onMessageList.get(1).toString());
-        AssertJUnit.assertEquals("Incorrect mapping!", "WSO2-100-57.6\r\n"
+        AssertJUnit.assertEquals("Incorrect mapping!", "WSO2-100-57.6" + System.lineSeparator()
                 , onMessageList.get(2).toString());
         executionPlanRuntime.shutdown();
 
@@ -739,11 +739,11 @@ public class TestCaseOfCSVSinkMapper {
         //assert event count
         AssertJUnit.assertEquals("Incorrect number of events consumed!", 3, companyCount.get());
         //assert default mapping
-        AssertJUnit.assertEquals("Incorrect mapping!", "null,100,56\r\n",
+        AssertJUnit.assertEquals("Incorrect mapping!", "null,100,56" + System.lineSeparator(),
                                  onMessageList.get(0).toString());
-        AssertJUnit.assertEquals("Incorrect mapping!", "WSO2,100,null\r\n",
+        AssertJUnit.assertEquals("Incorrect mapping!", "WSO2,100,null" + System.lineSeparator(),
                                  onMessageList.get(1).toString());
-        AssertJUnit.assertEquals("Incorrect mapping!", "WSO2,null,56\r\n",
+        AssertJUnit.assertEquals("Incorrect mapping!", "WSO2,null,56" + System.lineSeparator(),
                                  onMessageList.get(2).toString());
         executionPlanRuntime.shutdown();
 
@@ -795,11 +795,13 @@ public class TestCaseOfCSVSinkMapper {
         //assert event count
         AssertJUnit.assertEquals("Incorrect number of events consumed!", 4, companyCount.get());
         //assert default mapping
-        AssertJUnit.assertEquals("Incorrect mapping!", "symbol-volume-price\r\n",
+        AssertJUnit.assertEquals("Incorrect mapping!", "symbol-volume-price" + System.lineSeparator(),
                                  onMessageList.get(0).toString());
-        AssertJUnit.assertEquals("Incorrect mapping!", "WSO2#@$-100-55.6\r\n", onMessageList.get(1).toString());
-        AssertJUnit.assertEquals("Incorrect mapping!", "IBM-100-75.6\r\n", onMessageList.get(2).toString());
-        AssertJUnit.assertEquals("Incorrect mapping!", "null-100-null\r\n"
+        AssertJUnit.assertEquals("Incorrect mapping!", "WSO2#@$-100-55.6" +
+                System.lineSeparator(), onMessageList.get(1).toString());
+        AssertJUnit.assertEquals("Incorrect mapping!", "IBM-100-75.6" + System.lineSeparator(),
+                onMessageList.get(2).toString());
+        AssertJUnit.assertEquals("Incorrect mapping!", "null-100-null" + System.lineSeparator()
                 , onMessageList.get(3).toString());
         executionPlanRuntime.shutdown();
 
@@ -865,9 +867,9 @@ public class TestCaseOfCSVSinkMapper {
         AssertJUnit.assertEquals("Incorrect number of events consumed!", 1, wso2Count.get());
         AssertJUnit.assertEquals("Incorrect number of events consumed!", 1, ibmCount.get());
         //assert custom csv
-        AssertJUnit.assertEquals("Incorrect mapping!", "WSO2,55.6,100\r\n",
+        AssertJUnit.assertEquals("Incorrect mapping!", "WSO2,55.6,100" + System.lineSeparator(),
                                  onMessageList.get(0).toString());
-        AssertJUnit.assertEquals("Incorrect mapping!", "IBM,75.6,100\r\n",
+        AssertJUnit.assertEquals("Incorrect mapping!", "IBM,75.6,100" + System.lineSeparator(),
                                  onMessageList.get(1).toString());
         executionPlanRuntime.shutdown();
 
@@ -949,13 +951,13 @@ public class TestCaseOfCSVSinkMapper {
         //assert event count
         AssertJUnit.assertEquals("Incorrect number of events consumed!", 4, companyCount.get());
         //assert default mapping
-        AssertJUnit.assertEquals("Incorrect mapping!", "symbol-volume-price\r\n"
+        AssertJUnit.assertEquals("Incorrect mapping!", "symbol-volume-price" + System.lineSeparator()
                 , onMessageList.get(0).toString());
-        AssertJUnit.assertEquals("Incorrect mapping!", "null-100-null\r\n",
+        AssertJUnit.assertEquals("Incorrect mapping!", "null-100-null" + System.lineSeparator(),
                                  onMessageList.get(3).toString());
-        AssertJUnit.assertEquals("Incorrect mapping!", "WSO2#@$-100-55.6\r\n"
+        AssertJUnit.assertEquals("Incorrect mapping!", "WSO2#@$-100-55.6" + System.lineSeparator()
                 , onMessageList.get(1).toString());
-        AssertJUnit.assertEquals("Incorrect mapping!", "IBM-100-75.6\r\n",
+        AssertJUnit.assertEquals("Incorrect mapping!", "IBM-100-75.6" + System.lineSeparator(),
                                  onMessageList.get(2).toString());
         executionPlanRuntime.shutdown();
         //unsubscribe from "inMemory" broker per topic
