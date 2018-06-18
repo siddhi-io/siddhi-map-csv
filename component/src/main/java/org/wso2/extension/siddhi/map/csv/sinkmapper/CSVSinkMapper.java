@@ -81,11 +81,11 @@ import java.util.concurrent.atomic.AtomicBoolean;
                                 "define stream BarStream (symbol string, price float, volume long);",
                         description = "Above configuration will perform a default CSV output mapping, which will  " +
                                 "generate output as follows:\n " +
-                                "WSO2,55.6,100\r\n" +
+                                "WSO2,55.6,100<OS supported line separator>" +
 
                                 "If header is true and delimiter is \"-\", then the output will be as follows:\n" +
-                                "symbol-price-volume\r\n" +
-                                "WSO2-55.6-100\r\n"
+                                "symbol-price-volume<OS supported line separator>" +
+                                "WSO2-55.6-100<OS supported line separator>"
                 ),
                 @Example(
                         syntax = "@sink(type='inMemory', topic='{{symbol}}', @map(type='csv',header='true'," +
@@ -99,13 +99,13 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
                                 "If header is true and delimiter is \"-\", then the output will be as follows:\n" +
                                 "symbol-price-volume\r\n" +
-                                "WSO2-55.6-100\r\n" +
+                                "WSO2-55.6-100<OS supported line separator>" +
 
                                 "If event grouping is enabled, then the output is as follows:\n" +
 
-                                "WSO2-55.6-100System.lineSeparator()\n" +
-                                "WSO2-55.6-100System.lineSeparator()\n" +
-                                "WSO2-55.6-100System.lineSeparator()\n"
+                                "WSO2-55.6-100<OS supported line separator>\n" +
+                                "WSO2-55.6-100<OS supported line separator>\n" +
+                                "WSO2-55.6-100<OS supported line separator>\n"
                 )
         }
 )
@@ -223,6 +223,7 @@ public class CSVSinkMapper extends SinkMapper {
             if (isAddHeader) {
                 CSVFormat.DEFAULT
                         .withDelimiter(delimiter)
+                        .withRecordSeparator(System.lineSeparator())
                         .withNullString("null")
                         .withQuote('\"')
                         .printRecord(stringWriter, headerOfData);
@@ -254,6 +255,7 @@ public class CSVSinkMapper extends SinkMapper {
                         }
                         CSVFormat.DEFAULT
                                 .withDelimiter(delimiter)
+                                .withRecordSeparator(System.lineSeparator())
                                 .withNullString("null")
                                 .withQuote('\"')
                                 .printRecord(stringWriter, dataOfEvent);
@@ -279,6 +281,7 @@ public class CSVSinkMapper extends SinkMapper {
                         dataOfEvent = event.getData();
                         CSVFormat.DEFAULT
                                 .withDelimiter(delimiter)
+                                .withRecordSeparator(System.lineSeparator())
                                 .withNullString("null")
                                 .withQuote('\"')
                                 .printRecord(stringWriter, dataOfEvent);
@@ -317,6 +320,7 @@ public class CSVSinkMapper extends SinkMapper {
             if (isAddHeader) {
                 CSVFormat.DEFAULT
                         .withDelimiter(delimiter)
+                        .withRecordSeparator(System.lineSeparator())
                         .withNullString("null")
                         .withQuote('\"')
                         .printRecord(stringWriter, headerOfData);
@@ -326,6 +330,7 @@ public class CSVSinkMapper extends SinkMapper {
             }
             CSVFormat.DEFAULT
                     .withDelimiter(delimiter)
+                    .withRecordSeparator(System.lineSeparator())
                     .withNullString("null")
                     .withQuote('\"')
                     .printRecord(stringWriter, dataOfEvent);
