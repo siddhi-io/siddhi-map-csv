@@ -183,6 +183,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../1.0.7/" title="1.0.7" class="md-nav__link">
+      1.0.7
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../1.0.6/" title="1.0.6" class="md-nav__link">
       1.0.6
     </a>
@@ -422,7 +434,7 @@
               
                 
                 
-                <h1 id="api-docs-v106">API Docs - v1.0.6</h1>
+                <h1 id="api-docs-v107">API Docs - v1.0.7</h1>
 <h2 id="sinkmapper">Sinkmapper</h2>
 <h3 id="csv-sink-mapper">csv <em><a target="_blank" href="https://wso2.github.io/siddhi/documentation/siddhi-4.0/#sink-mapper">(Sink Mapper)</a></em></h3>
 <p style="word-wrap: break-word">This output mapper extension allows you to convert Siddhi events processed by the WSO2 SP to CSV message before publishing them. You can either use custom placeholder to map a custom CSV message or use pre-defined CSV format where event conversion takes place without extra configurations.</p>
@@ -472,10 +484,7 @@
 define stream BarStream (symbol string, price float, volume long);
 </code></pre>
 
-<p style="word-wrap: break-word">Above configuration will perform a default CSV output mapping, which will  generate output as follows:<br>&nbsp;WSO2,55.6,100
-<br>If header is true and delimiter is "-", then the output will be as follows:<br>symbol-price-volume
-<br>WSO2-55.6-100
-<br></p>
+<p style="word-wrap: break-word">Above configuration will perform a default CSV output mapping, which will  generate output as follows:<br>&nbsp;WSO2,55.6,100&lt;OS supported line separator&gt;If header is true and delimiter is "-", then the output will be as follows:<br>symbol-price-volume&lt;OS supported line separator&gt;WSO2-55.6-100&lt;OS supported line separator&gt;</p>
 
 <p><span id="example-2" class="md-typeset" style="display: block; color: rgba(0, 0, 0, 0.54); font-size: 12.8px; font-weight: bold;">EXAMPLE 2</span></p>
 <pre><code>@sink(type='inMemory', topic='{{symbol}}', @map(type='csv',header='true',delimiter='-',@payload(symbol='0',price='2',volume='1')))define stream BarStream (symbol string, price float,volume long); 
@@ -483,8 +492,7 @@ define stream BarStream (symbol string, price float, volume long);
 
 <p style="word-wrap: break-word">Above configuration will perform a custom CSV mapping. Here, user can add custom place order in the @payload. The place order indicates that where the attribute name's value will be appear in the output message, The output will be produced output as follows:<br>WSO2,100,55.6
 <br>If header is true and delimiter is "-", then the output will be as follows:<br>symbol-price-volume
-<br>WSO2-55.6-100
-<br>If event grouping is enabled, then the output is as follows:<br>WSO2-55.6-100System.lineSeparator()<br>WSO2-55.6-100System.lineSeparator()<br>WSO2-55.6-100System.lineSeparator()<br></p>
+<br>WSO2-55.6-100&lt;OS supported line separator&gt;If event grouping is enabled, then the output is as follows:<br>WSO2-55.6-100&lt;OS supported line separator&gt;<br>WSO2-55.6-100&lt;OS supported line separator&gt;<br>WSO2-55.6-100&lt;OS supported line separator&gt;<br></p>
 
 <h2 id="sourcemapper">Sourcemapper</h2>
 <h3 id="csv-source-mapper">csv <em><a target="_blank" href="https://wso2.github.io/siddhi/documentation/siddhi-4.0/#source-mapper">(Source Mapper)</a></em></h3>
