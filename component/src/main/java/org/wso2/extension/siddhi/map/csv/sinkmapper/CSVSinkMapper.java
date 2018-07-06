@@ -160,7 +160,11 @@ public class CSVSinkMapper extends SinkMapper {
                                                                                         DEFAULT_GROUP_EVENTS));
         this.delimiter = optionHolder.getOrCreateOption(DELIMITER, DEFAULT_DELIMITER).getValue().charAt(0);
         headerOfData = new Object[streamDefinition.getAttributeNameArray().length];
-        dataOfEvent = new Object[streamDefinition.getAttributeNameArray().length];
+        if (payloadTemplateBuilderMap == null) {
+            dataOfEvent = new Object[streamDefinition.getAttributeNameArray().length];
+        } else {
+            dataOfEvent = new Object[payloadTemplateBuilderMap.size()];
+        }
         stringWriter = new StringWriter();
         if (header) {
             isAddHeader = true;
@@ -179,8 +183,14 @@ public class CSVSinkMapper extends SinkMapper {
                 for (String attributeName : streamDefinition.getAttributeNameArray()) {
                     if (attributeName.equals(entry.getKey())) {
                         try {
-                            headerOfData[Integer.parseInt(String.valueOf(entry.getValue().build(new Event())))] =
-                                    entry.getKey();
+                            int index = Integer.parseInt(String.valueOf(entry.getValue().build(new Event())));
+                            if (index < headerOfData.length) {
+                                headerOfData[index] = entry.getKey();
+                            } else {
+                                throw new SiddhiAppCreationException("The index given for the attribtue "
+                                        + attributeName + " is invalid. It should be between 0 and "
+                                        + headerOfData.length);
+                            }
                         } catch (NumberFormatException e) {
                             isValidateEntry.set(false);
                             throw new SiddhiAppCreationException(

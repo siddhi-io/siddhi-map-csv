@@ -1143,5 +1143,95 @@ public class TestCaseOfCSVSinkMapper {
         InMemoryBroker.unsubscribe(subscriberWSO2);
         InMemoryBroker.unsubscribe(subscriberIBM);
     }
-}
 
+    @Test
+    public void testCSVOutputCustomMapping() throws InterruptedException {
+        log.info("Test custom csv mapping when all the attributes of stream are not present in the custom mapping");
+        List<Object> onMessageList = new ArrayList<>();
+
+        InMemoryBroker.Subscriber subscriberWSO2 = new InMemoryBroker.Subscriber() {
+            @Override
+            public void onMessage(Object msg) {
+                onMessageList.add(msg);
+                wso2Count.incrementAndGet();
+            }
+
+            @Override
+            public String getTopic() {
+                return "WSO2";
+            }
+        };
+
+        InMemoryBroker.Subscriber subscriberIBM = new InMemoryBroker.Subscriber() {
+            @Override
+            public void onMessage(Object msg) {
+                onMessageList.add(msg);
+                ibmCount.incrementAndGet();
+            }
+
+            @Override
+            public String getTopic() {
+                return "IBM";
+            }
+        };
+
+        //subscribe to "inMemory" broker per topic
+        InMemoryBroker.subscribe(subscriberWSO2);
+        InMemoryBroker.subscribe(subscriberIBM);
+
+        String streams = "" + "@App:name('TestSiddhiApp')"
+                + "define stream FooStream (symbol string, price float, volume long); "
+                + "@sink(type='inMemory', topic='{{symbol}}', @map(type='csv',"
+                + "@payload(symbol='0',volume='1')))"
+                + "define stream BarStream (symbol string, price float, volume long); ";
+
+        String query = "" + "from FooStream " + "select * " + "insert into BarStream; ";
+
+        SiddhiManager siddhiManager = new SiddhiManager();
+        SiddhiAppRuntime siddhiAppRuntime = siddhiManager.createSiddhiAppRuntime(streams + query);
+        InputHandler stockStream = siddhiAppRuntime.getInputHandler("FooStream");
+
+        siddhiAppRuntime.start();
+        stockStream.send(new Object[]{"WSO2", 55.6f, 100L});
+        stockStream.send(new Object[]{"IBM", 75.6f, 100L});
+        stockStream.send(new Object[]{"WSO2", 57.6f, 100L});
+
+        SiddhiTestHelper.waitForEvents(waitTime, 2, wso2Count, timeout);
+        SiddhiTestHelper.waitForEvents(waitTime, 1, ibmCount, timeout);
+        //assert event count
+        AssertJUnit.assertEquals("Incorrect number of events consumed!", 2, wso2Count.get());
+        AssertJUnit.assertEquals("Incorrect number of events consumed!", 1, ibmCount.get());
+        //assert custom csv
+        AssertJUnit.assertEquals("Incorrect mapping!", "WSO2,100" + System.lineSeparator()
+                , onMessageList.get(0).toString());
+        AssertJUnit.assertEquals("Incorrect mapping!", "IBM,100" + System.lineSeparator()
+                , onMessageList.get(1).toString());
+        AssertJUnit.assertEquals("Incorrect mapping!", "WSO2,100" + System.lineSeparator()
+                , onMessageList.get(2).toString());
+        siddhiAppRuntime.shutdown();
+
+        //unsubscribe from "inMemory" broker per topic
+        InMemoryBroker.unsubscribe(subscriberWSO2);
+        InMemoryBroker.unsubscribe(subscriberIBM);
+        siddhiManager.shutdown();
+    }
+
+    @Test(expectedExceptions = SiddhiAppCreationException.class)
+    public void testCSVOutputCustomMappingWithInvalidIndex() throws InterruptedException {
+        log.info("Test custom csv mapping when mapped index is invalid");
+
+        String streams = "" + "@App:name('TestSiddhiApp')"
+                + "define stream FooStream (symbol string, price float, volume long); "
+                + "@sink(type='inMemory', topic='{{symbol}}', @map(type='csv',"
+                + "@payload(symbol='0',volume='2')))"
+                + "define stream BarStream (symbol string, price float, volume long); ";
+
+        String query = "" + "from FooStream " + "select * " + "insert into BarStream; ";
+
+        SiddhiManager siddhiManager = new SiddhiManager();
+        SiddhiAppRuntime siddhiAppRuntime = siddhiManager.createSiddhiAppRuntime(streams + query);
+
+        siddhiAppRuntime.start();
+        siddhiManager.shutdown();
+    }
+}
