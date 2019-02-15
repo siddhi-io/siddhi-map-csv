@@ -51,7 +51,7 @@ public class TestCaseOfCSVSourceMapper {
      * WSO2,55.6,100\n
      */
     @Test
-    public void testCSVInputDefaultMapping() throws InterruptedException {
+    public void testCSVInputDefaultMapping() throws Exception {
         log.info("_________________Test case for csv input mapping with default mapping____________________");
 
         String streams = "" +
@@ -106,7 +106,7 @@ public class TestCaseOfCSVSourceMapper {
     }
 
     @Test
-    public void testCSVInputDefaultMappingMultipleEvent() throws InterruptedException {
+    public void testCSVInputDefaultMappingMultipleEvent() throws Exception {
         log.info("_____Test case for csv default mapping for multiple events with header and delimiter______");
 
         String streams = "" +
@@ -154,7 +154,7 @@ public class TestCaseOfCSVSourceMapper {
 
     //Custom mapping
     @Test
-    public void testCSVInputCustomMapping() throws InterruptedException {
+    public void testCSVInputCustomMapping() throws Exception {
         log.info("___________Test case for csv input mapping with custom mapping using delimeter___________");
 
         String streams = "" +
@@ -204,7 +204,7 @@ public class TestCaseOfCSVSourceMapper {
     }
 
     @Test
-    public void testCSVInputCustomMapping1() throws InterruptedException {
+    public void testCSVInputCustomMapping1() throws Exception {
         log.info("______Test case for csv input mapping with custom mapping using delimeter and header_____");
 
         String streams = "" +
@@ -255,7 +255,7 @@ public class TestCaseOfCSVSourceMapper {
     }
 
     @Test
-    public void testInputCustomMappingwithfailunknownattribute() throws InterruptedException {
+    public void testInputCustomMappingwithfailunknownattribute() throws Exception {
         log.info("____________Test case for csv default mapping with fail.on.unknown.attribute______________");
 
         String streams = "" +
@@ -321,7 +321,7 @@ public class TestCaseOfCSVSourceMapper {
     }
 
     @Test
-    public void testInputCustomMappingwithfailunknownattribute1() throws InterruptedException {
+    public void testInputCustomMappingwithfailunknownattribute1() throws Exception {
         log.info("____________Test case for csv default mapping with fail.on.unknown.attribute1______________");
 
         String streams = "" +
@@ -370,7 +370,7 @@ public class TestCaseOfCSVSourceMapper {
 
 
     @Test
-    public void testTextCustomSourceMapperEventGroup() throws InterruptedException {
+    public void testTextCustomSourceMapperEventGroup() throws Exception {
         log.info("Test for custom mapping for event grouping");
         String streams = "" +
                 "@App:name('TestSiddhiApp')" +
@@ -436,7 +436,7 @@ public class TestCaseOfCSVSourceMapper {
     }
 
     @Test(expectedExceptions = org.wso2.siddhi.core.exception.SiddhiAppCreationException.class)
-    public void testInputCustomMappingAttributeSize() throws InterruptedException {
+    public void testInputCustomMappingAttributeSize() throws Exception {
         log.info("____________________Test case for csv custom mapping @attribute size______________________");
 
         String streams = "" +
@@ -457,7 +457,7 @@ public class TestCaseOfCSVSourceMapper {
     }
 
     @Test
-    public void testTextCustomSourceMapperEventGroup1() throws InterruptedException {
+    public void testTextCustomSourceMapperEventGroup1() throws Exception {
         log.info("Test for custom mapping for event grouping1");
         String streams = "" +
                 "@App:name('TestSiddhiApp')" +
@@ -523,7 +523,7 @@ public class TestCaseOfCSVSourceMapper {
     }
 
     @Test
-    public void testTextCustomSourceMapperEventGroupTrp2() throws InterruptedException {
+    public void testTextCustomSourceMapperEventGroupTrp2() throws Exception {
         log.info("Test for custom mapping for event grouping2");
         String streams = "" +
                 "@App:name('TestSiddhiApp')" +

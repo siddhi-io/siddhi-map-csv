@@ -30,7 +30,7 @@
 
     <groupId>org.wso2.extension.siddhi.map.csv</groupId>
     <artifactId>siddhi-map-csv-parent</artifactId>
-    <version>1.0.13-SNAPSHOT</version>
+    <version>1.1.0-SNAPSHOT</version>
     <name>Siddhi CSV - Map Extension</name>
 
     <modules>
@@ -110,7 +110,7 @@
         </plugins>
     </build>
     <properties>
-        <siddhi.version>4.2.17</siddhi.version>
+        <siddhi.version>4.4.8</siddhi.version>
         <log4j.version>1.2.17.wso2v1</log4j.version>
         <testng.version>6.8</testng.version>
         <commons.csv.version>1.4</commons.csv.version>
