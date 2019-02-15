@@ -2,77 +2,82 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
      <loc>https://wso2-extensions.github.io/siddhi-map-csv/</loc>
-     <lastmod>2018-09-07</lastmod>
+     <lastmod>2019-02-15</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>https://wso2-extensions.github.io/siddhi-map-csv/api/1.1.0/</loc>
+     <lastmod>2019-02-15</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://wso2-extensions.github.io/siddhi-map-csv/api/1.0.12/</loc>
-     <lastmod>2018-09-07</lastmod>
+     <lastmod>2019-02-15</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://wso2-extensions.github.io/siddhi-map-csv/api/1.0.11/</loc>
-     <lastmod>2018-09-07</lastmod>
+     <lastmod>2019-02-15</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://wso2-extensions.github.io/siddhi-map-csv/api/1.0.10/</loc>
-     <lastmod>2018-09-07</lastmod>
+     <lastmod>2019-02-15</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://wso2-extensions.github.io/siddhi-map-csv/api/1.0.9/</loc>
-     <lastmod>2018-09-07</lastmod>
+     <lastmod>2019-02-15</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://wso2-extensions.github.io/siddhi-map-csv/api/1.0.8/</loc>
-     <lastmod>2018-09-07</lastmod>
+     <lastmod>2019-02-15</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://wso2-extensions.github.io/siddhi-map-csv/api/1.0.7/</loc>
-     <lastmod>2018-09-07</lastmod>
+     <lastmod>2019-02-15</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://wso2-extensions.github.io/siddhi-map-csv/api/1.0.6/</loc>
-     <lastmod>2018-09-07</lastmod>
+     <lastmod>2019-02-15</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://wso2-extensions.github.io/siddhi-map-csv/api/1.0.5/</loc>
-     <lastmod>2018-09-07</lastmod>
+     <lastmod>2019-02-15</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://wso2-extensions.github.io/siddhi-map-csv/api/1.0.4/</loc>
-     <lastmod>2018-09-07</lastmod>
+     <lastmod>2019-02-15</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://wso2-extensions.github.io/siddhi-map-csv/api/1.0.3/</loc>
-     <lastmod>2018-09-07</lastmod>
+     <lastmod>2019-02-15</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://wso2-extensions.github.io/siddhi-map-csv/api/1.0.2/</loc>
-     <lastmod>2018-09-07</lastmod>
+     <lastmod>2019-02-15</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://wso2-extensions.github.io/siddhi-map-csv/api/1.0.1/</loc>
-     <lastmod>2018-09-07</lastmod>
+     <lastmod>2019-02-15</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://wso2-extensions.github.io/siddhi-map-csv/api/latest/</loc>
-     <lastmod>2018-09-07</lastmod>
+     <lastmod>2019-02-15</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://wso2-extensions.github.io/siddhi-map-csv/license/</loc>
-     <lastmod>2018-09-07</lastmod>
+     <lastmod>2019-02-15</lastmod>
      <changefreq>daily</changefreq>
     </url>
 </urlset>
