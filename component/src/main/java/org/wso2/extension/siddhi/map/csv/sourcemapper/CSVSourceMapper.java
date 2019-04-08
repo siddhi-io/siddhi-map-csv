@@ -18,24 +18,24 @@
 
 package org.wso2.extension.siddhi.map.csv.sourcemapper;
 
+import io.siddhi.annotation.Example;
+import io.siddhi.annotation.Extension;
+import io.siddhi.annotation.Parameter;
+import io.siddhi.annotation.util.DataType;
+import io.siddhi.core.config.SiddhiAppContext;
+import io.siddhi.core.event.Event;
+import io.siddhi.core.exception.SiddhiAppRuntimeException;
+import io.siddhi.core.stream.input.source.AttributeMapping;
+import io.siddhi.core.stream.input.source.InputEventHandler;
+import io.siddhi.core.stream.input.source.SourceMapper;
+import io.siddhi.core.util.AttributeConverter;
+import io.siddhi.core.util.config.ConfigReader;
+import io.siddhi.core.util.transport.OptionHolder;
+import io.siddhi.query.api.definition.Attribute;
+import io.siddhi.query.api.definition.StreamDefinition;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
 import org.apache.log4j.Logger;
-import org.wso2.siddhi.annotation.Example;
-import org.wso2.siddhi.annotation.Extension;
-import org.wso2.siddhi.annotation.Parameter;
-import org.wso2.siddhi.annotation.util.DataType;
-import org.wso2.siddhi.core.config.SiddhiAppContext;
-import org.wso2.siddhi.core.event.Event;
-import org.wso2.siddhi.core.exception.SiddhiAppRuntimeException;
-import org.wso2.siddhi.core.stream.input.source.AttributeMapping;
-import org.wso2.siddhi.core.stream.input.source.InputEventHandler;
-import org.wso2.siddhi.core.stream.input.source.SourceMapper;
-import org.wso2.siddhi.core.util.AttributeConverter;
-import org.wso2.siddhi.core.util.config.ConfigReader;
-import org.wso2.siddhi.core.util.transport.OptionHolder;
-import org.wso2.siddhi.query.api.definition.Attribute;
-import org.wso2.siddhi.query.api.definition.StreamDefinition;
 
 import java.io.IOException;
 import java.io.StringReader;
@@ -45,7 +45,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * This mapper converts CSV string input to {@link org.wso2.siddhi.core.event.ComplexEventChunk}.
+ * This mapper converts CSV string input to {@link io.siddhi.core.event.ComplexEventChunk}.
  */
 
 @Extension(
@@ -159,7 +159,7 @@ public class CSVSourceMapper extends SourceMapper {
      * @param optionHolder         Option holder containing static configuration related to the {@link SourceMapper}
      * @param attributeMappingList Custom attribute mapping for source-mapping
      * @param configReader         to read the {@link SourceMapper} related system configuration.
-     * @param siddhiAppContext     the context of the {@link org.wso2.siddhi.query.api.SiddhiApp} used to get siddhi
+     * @param siddhiAppContext     the context of the {@link io.siddhi.query.api.SiddhiApp} used to get siddhi
      */
     @Override
     public void init(StreamDefinition streamDefinition, OptionHolder optionHolder,
@@ -209,7 +209,7 @@ public class CSVSourceMapper extends SourceMapper {
      */
     @Override
     protected void mapAndProcess(Object eventObject, InputEventHandler inputEventHandler) throws InterruptedException {
-        Event[] result = new org.wso2.siddhi.core.event.Event[0];
+        Event[] result = new io.siddhi.core.event.Event[0];
         try {
             if (eventObject == null) {
                 throw new SiddhiAppRuntimeException("Null object received from the Source to CSVsourceMapper");

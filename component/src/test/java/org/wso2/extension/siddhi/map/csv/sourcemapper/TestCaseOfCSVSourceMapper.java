@@ -18,17 +18,17 @@
 
 package org.wso2.extension.siddhi.map.csv.sourcemapper;
 
+import io.siddhi.core.SiddhiAppRuntime;
+import io.siddhi.core.SiddhiManager;
+import io.siddhi.core.event.Event;
+import io.siddhi.core.stream.output.StreamCallback;
+import io.siddhi.core.util.EventPrinter;
+import io.siddhi.core.util.SiddhiTestHelper;
+import io.siddhi.core.util.transport.InMemoryBroker;
 import org.apache.log4j.Logger;
 import org.testng.AssertJUnit;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import org.wso2.siddhi.core.SiddhiAppRuntime;
-import org.wso2.siddhi.core.SiddhiManager;
-import org.wso2.siddhi.core.event.Event;
-import org.wso2.siddhi.core.stream.output.StreamCallback;
-import org.wso2.siddhi.core.util.EventPrinter;
-import org.wso2.siddhi.core.util.SiddhiTestHelper;
-import org.wso2.siddhi.core.util.transport.InMemoryBroker;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -392,7 +392,7 @@ public class TestCaseOfCSVSourceMapper {
 
             @Override
             public void receive(Event[] events) {
-                org.wso2.siddhi.core.util.EventPrinter.print(events);
+                io.siddhi.core.util.EventPrinter.print(events);
                 for (Event event : events) {
                     switch (count.incrementAndGet()) {
                         case 1:
@@ -435,7 +435,7 @@ public class TestCaseOfCSVSourceMapper {
         siddhiAppRuntime.shutdown();
     }
 
-    @Test(expectedExceptions = org.wso2.siddhi.core.exception.SiddhiAppCreationException.class)
+    @Test(expectedExceptions = io.siddhi.core.exception.SiddhiAppCreationException.class)
     public void testInputCustomMappingAttributeSize() throws Exception {
         log.info("____________________Test case for csv custom mapping @attribute size______________________");
 
@@ -479,7 +479,7 @@ public class TestCaseOfCSVSourceMapper {
 
             @Override
             public void receive(Event[] events) {
-                org.wso2.siddhi.core.util.EventPrinter.print(events);
+                io.siddhi.core.util.EventPrinter.print(events);
                 for (Event event : events) {
                     switch (count.incrementAndGet()) {
                         case 1:
@@ -545,7 +545,7 @@ public class TestCaseOfCSVSourceMapper {
 
             @Override
             public void receive(Event[] events) {
-                org.wso2.siddhi.core.util.EventPrinter.print(events);
+                io.siddhi.core.util.EventPrinter.print(events);
                 for (Event event : events) {
                     assertEquals("foo", event.getData(0));
                     switch (count.incrementAndGet()) {
