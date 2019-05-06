@@ -28,7 +28,7 @@ Latest API Docs is <a target="_blank" href="https://wso2-extensions.github.io/si
 
 ```
      <dependency>
-        <groupId>org.wso2.extension.siddhi.map.csv</groupId>
+        <groupId>io.siddhi.extension.map.csv</groupId>
         <artifactId>siddhi-map-csv</artifactId>
         <version>x.x.x</version>
      </dependency>

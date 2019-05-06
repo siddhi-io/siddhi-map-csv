@@ -3,8 +3,8 @@
 <suite name="Siddhi-Map-CSV-Test-Suite">
     <test name="Siddhi-map-csv-tests" enabled="true" preserve-order="true" parallel="false">
         <classes>
-            <class name="org.wso2.extension.siddhi.map.csv.sinkmapper.TestCaseOfCSVSinkMapper"/>
-            <class name="org.wso2.extension.siddhi.map.csv.sourcemapper.TestCaseOfCSVSourceMapper"/>
+            <class name="io.siddhi.extension.map.csv.sinkmapper.TestCaseOfCSVSinkMapper"/>
+            <class name="io.siddhi.extension.map.csv.sourcemapper.TestCaseOfCSVSourceMapper"/>
         </classes>
     </test>
 </suite>
