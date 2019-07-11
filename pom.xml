@@ -119,9 +119,9 @@
         <carbon.feature.plugin.version>3.1.1</carbon.feature.plugin.version>
     </properties>
     <scm>
-        <connection>scm:git:https://github.com/wso2-extensions/siddhi-map-csv.git</connection>
-        <url>https://github.com/wso2-extensions/siddhi-map-csv.git</url>
-        <developerConnection>scm:git:https://github.com/wso2-extensions/siddhi-map-csv.git
+        <connection>scm:git:https://github.com/siddhi-io/siddhi-map-csv.git</connection>
+        <url>https://github.com/siddhi-io/siddhi-map-csv.git</url>
+        <developerConnection>scm:git:https://github.com/siddhi-io/siddhi-map-csv.git
         </developerConnection>
         <tag>HEAD</tag>
     </scm>
