@@ -63,13 +63,6 @@ import java.util.Map;
                         optional = true, defaultValue = ",",
                         type = {DataType.STRING}),
                 @Parameter(
-                        name = "header.present",
-                        description = "When converting a CSV format message to Siddhi event, this parameter indicates" +
-                                " whether CSV message has header or not. This can either have value true or false." +
-                                "If it's set to `false` then it indicates that CSV message has't header. ",
-                        optional = true, defaultValue = "false",
-                        type = {DataType.BOOL}),
-                @Parameter(
                         name = "fail.on.unknown.attribute",
                         description = "This parameter specifies how unknown attributes should be handled. " +
                                 "If it's set to `true` and one or more attributes don't have" +
@@ -134,7 +127,6 @@ public class CSVSourceMapper extends SourceMapper {
 
     private static final Logger log = Logger.getLogger(CSVSourceMapper.class);
     private static final String MAPPING_DELIMETER = "delimiter";
-    private static final String MAPPING_HEADER = "header";
     private static final String FAIL_ON_UNKNOWN_ATTRIBUTE = "fail.on.unknown.attribute";
     private static final String OPTION_GROUP_EVENTS = "event.grouping.enabled";
     private static final String DEFAULT_FAIL_ON_UNKNOWN_ATTRIBUTE = "true";
@@ -150,7 +142,6 @@ public class CSVSourceMapper extends SourceMapper {
     private List<AttributeMapping> attributeMappingList;
     private Map<String, Attribute.Type> attributeTypeMap = new HashMap<>();
     private Map<String, Integer> attributePositionMap = new HashMap<>();
-    private int pointer;
 
     /**
      * The initialization method for {@link SourceMapper}.
@@ -170,7 +161,6 @@ public class CSVSourceMapper extends SourceMapper {
         this.attributeTypeMap = new HashMap<>(attributeList.size());
         this.attributePositionMap = new HashMap<>(attributeList.size());
         this.delimiter = optionHolder.validateAndGetStaticValue(MAPPING_DELIMETER, ",").charAt(0);
-        boolean header = Boolean.parseBoolean(optionHolder.validateAndGetStaticValue(MAPPING_HEADER, "false"));
         this.failOnUnknownAttribute = Boolean.parseBoolean(optionHolder.validateAndGetStaticValue(
                 FAIL_ON_UNKNOWN_ATTRIBUTE, DEFAULT_FAIL_ON_UNKNOWN_ATTRIBUTE));
         this.eventGroupEnabled = Boolean.valueOf(optionHolder.validateAndGetStaticValue(OPTION_GROUP_EVENTS,
@@ -182,11 +172,6 @@ public class CSVSourceMapper extends SourceMapper {
         if (attributeMappingList != null && attributeMappingList.size() > 0) { // custom mapping
             isCustomMappingEnabled = true;
             this.attributeMappingList = attributeMappingList;
-        }
-        if (header) {
-            pointer = 0;
-        } else {
-            pointer = 1;
         }
     }
 
@@ -209,7 +194,7 @@ public class CSVSourceMapper extends SourceMapper {
      */
     @Override
     protected void mapAndProcess(Object eventObject, InputEventHandler inputEventHandler) throws InterruptedException {
-        Event[] result = new io.siddhi.core.event.Event[0];
+        Event[] result;
         try {
             if (eventObject == null) {
                 throw new SiddhiAppRuntimeException("Null object received from the Source to CSVsourceMapper");
@@ -217,10 +202,7 @@ public class CSVSourceMapper extends SourceMapper {
                 throw new SiddhiAppRuntimeException("Invalid input supported type received. Expected String, but found"
                         + eventObject.getClass().getCanonicalName());
             } else {
-                if (pointer != 0) {
-                    result = convertToEvents(eventObject);
-                }
-                pointer++;
+                result = convertToEvents(eventObject);
             }
             if (result.length > 0) {
                 inputEventHandler.sendEvents(result);
