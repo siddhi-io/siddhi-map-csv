@@ -114,7 +114,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="#api-docs-v204" tabindex="1" class="md-skip">
+      <a href="#api-docs-v205" tabindex="1" class="md-skip">
         Skip to content
       </a>
     
@@ -358,6 +358,18 @@
   
 </nav>
     
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../2.0.5/" title="2.0.5" class="md-nav__link">
+      2.0.5
+    </a>
   </li>
 
         
@@ -685,14 +697,16 @@
                   <a href="https://github.com/siddhi-io/siddhi-map-csv/blob/master/api/latest.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
                 
                 
-                <h1 id="api-docs-v204">API Docs - v2.0.4</h1>
+                <h1 id="api-docs-v205">API Docs - v2.0.5</h1>
 <div class="admonition info">
-<p class="admonition-title">Tested Siddhi Core version: <em><a target="_blank" href="http://siddhi.io/en/v5.1/docs/query-guide/">5.1.0</a></em></p>
+<p class="admonition-title">Tested Siddhi Core version: <em><a target="_blank" href="http://siddhi.io/en/v5.1/docs/query-guide/">5.1.13</a></em></p>
 <p>It could also support other Siddhi Core minor versions.</p>
 </div>
 <h2 id="sinkmapper">Sinkmapper</h2>
 <h3 id="csv-sink-mapper">csv <em><a target="_blank" href="http://siddhi.io/en/v5.1/docs/query-guide/#sink-mapper">(Sink Mapper)</a></em></h3>
-<p><p style="word-wrap: break-word">This output mapper extension allows you to convert Siddhi events processed by the WSO2 SP to CSV message before publishing them. You can either use custom placeholder to map a custom CSV message or use pre-defined CSV format where event conversion takes place without extra configurations.</p>
+<p><p></p>
+<p style="word-wrap: break-word;margin: 0;">This output mapper extension allows you to convert Siddhi events processed by the WSO2 SP to CSV message before publishing them. You can either use custom placeholder to map a custom CSV message or use pre-defined CSV format where event conversion takes place without extra configurations.</p>
+<p></p>
 <span id="syntax" class="md-typeset" style="display: block; font-weight: bold;">Syntax</span></p>
 <pre><code>@sink(..., @map(type=&quot;csv&quot;, delimiter=&quot;&lt;STRING&gt;&quot;, header=&quot;&lt;BOOL&gt;&quot;, event.grouping.enabled=&quot;&lt;BOOL&gt;&quot;)
 </code></pre>
@@ -709,7 +723,7 @@
     </tr>
     <tr>
         <td style="vertical-align: top">delimiter</td>
-        <td style="vertical-align: top; word-wrap: break-word">This parameter used to separate the output CSV data, when converting a Siddhi event to CSV format,</td>
+        <td style="vertical-align: top; word-wrap: break-word"><p style="word-wrap: break-word;margin: 0;">This parameter used to separate the output CSV data, when converting a Siddhi event to CSV format,</p></td>
         <td style="vertical-align: top">,</td>
         <td style="vertical-align: top">STRING</td>
         <td style="vertical-align: top">Yes</td>
@@ -717,7 +731,7 @@
     </tr>
     <tr>
         <td style="vertical-align: top">header</td>
-        <td style="vertical-align: top; word-wrap: break-word">This parameter specifies whether the CSV messages will be generated with header or not. If this parameter is set to true, message will be generated with header</td>
+        <td style="vertical-align: top; word-wrap: break-word"><p style="word-wrap: break-word;margin: 0;">This parameter specifies whether the CSV messages will be generated with header or not. If this parameter is set to true, message will be generated with header</p></td>
         <td style="vertical-align: top">false</td>
         <td style="vertical-align: top">BOOL</td>
         <td style="vertical-align: top">Yes</td>
@@ -725,7 +739,7 @@
     </tr>
     <tr>
         <td style="vertical-align: top">event.grouping.enabled</td>
-        <td style="vertical-align: top; word-wrap: break-word">If this parameter is set to <code>true</code>, events are grouped via a line.separator when multiple events are received. It is required to specify a value for the System.lineSeparator() when the value for this parameter is <code>true</code>.</td>
+        <td style="vertical-align: top; word-wrap: break-word"><p style="word-wrap: break-word;margin: 0;">If this parameter is set to <code>true</code>, events are grouped via a line.separator when multiple events are received. It is required to specify a value for the System.lineSeparator() when the value for this parameter is <code>true</code>.</p></td>
         <td style="vertical-align: top">false</td>
         <td style="vertical-align: top">BOOL</td>
         <td style="vertical-align: top">Yes</td>
@@ -738,19 +752,29 @@
 define stream BarStream (symbol string, price float, volume long);
 </code></pre>
 
-<p style="word-wrap: break-word">Above configuration will perform a default CSV output mapping, which will  generate output as follows:<br>&nbsp;WSO2,55.6,100&lt;OS supported line separator&gt;If header is true and delimiter is "-", then the output will be as follows:<br>symbol-price-volume&lt;OS supported line separator&gt;WSO2-55.6-100&lt;OS supported line separator&gt;</p>
+<p></p>
+
+<p style="word-wrap: break-word;margin: 0;">Above configuration will perform a default CSV output mapping, which will  generate output as follows:<br>&nbsp;WSO2,55.6,100&lt;OS supported line separator&gt;If header is true and delimiter is "-", then the output will be as follows:<br>symbol-price-volume&lt;OS supported line separator&gt;WSO2-55.6-100&lt;OS supported line separator&gt;</p>
+
+<p></p>
 
 <p><span id="example-2" class="md-typeset" style="display: block; color: rgba(0, 0, 0, 0.54); font-size: 12.8px; font-weight: bold;">EXAMPLE 2</span></p>
 <pre><code>@sink(type='inMemory', topic='{{symbol}}', @map(type='csv',header='true',delimiter='-',@payload(symbol='0',price='2',volume='1')))define stream BarStream (symbol string, price float,volume long); 
 </code></pre>
 
-<p style="word-wrap: break-word">Above configuration will perform a custom CSV mapping. Here, user can add custom place order in the @payload. The place order indicates that where the attribute name's value will be appear in the output message, The output will be produced output as follows:<br>WSO2,100,55.6
+<p></p>
+
+<p style="word-wrap: break-word;margin: 0;">Above configuration will perform a custom CSV mapping. Here, user can add custom place order in the @payload. The place order indicates that where the attribute name's value will be appear in the output message, The output will be produced output as follows:<br>WSO2,100,55.6
 <br>If header is true and delimiter is "-", then the output will be as follows:<br>symbol-price-volume
 <br>WSO2-55.6-100&lt;OS supported line separator&gt;If event grouping is enabled, then the output is as follows:<br>WSO2-55.6-100&lt;OS supported line separator&gt;<br>WSO2-55.6-100&lt;OS supported line separator&gt;<br>WSO2-55.6-100&lt;OS supported line separator&gt;<br></p>
 
+<p></p>
+
 <h2 id="sourcemapper">Sourcemapper</h2>
 <h3 id="csv-source-mapper">csv <em><a target="_blank" href="http://siddhi.io/en/v5.1/docs/query-guide/#source-mapper">(Source Mapper)</a></em></h3>
-<p><p style="word-wrap: break-word">This extension is used to convert CSV message to Siddhi event input mapper. You can either receive pre-defined CSV message where event conversion takes place without extra configurations,or receive custom CSV message where a custom place order to map from custom CSV message.</p>
+<p><p></p>
+<p style="word-wrap: break-word;margin: 0;">This extension is used to convert CSV message to Siddhi event input mapper. You can either receive pre-defined CSV message where event conversion takes place without extra configurations,or receive custom CSV message where a custom place order to map from custom CSV message.</p>
+<p></p>
 <span id="syntax" class="md-typeset" style="display: block; font-weight: bold;">Syntax</span></p>
 <pre><code>@source(..., @map(type=&quot;csv&quot;, delimiter=&quot;&lt;STRING&gt;&quot;, fail.on.unknown.attribute=&quot;&lt;BOOL&gt;&quot;, event.grouping.enabled=&quot;&lt;BOOL&gt;&quot;)
 </code></pre>
@@ -767,7 +791,7 @@ define stream BarStream (symbol string, price float, volume long);
     </tr>
     <tr>
         <td style="vertical-align: top">delimiter</td>
-        <td style="vertical-align: top; word-wrap: break-word">When converting a CSV format message to Siddhi event, this parameter indicatesinput CSV message's data should be split by this parameter </td>
+        <td style="vertical-align: top; word-wrap: break-word"><p style="word-wrap: break-word;margin: 0;">When converting a CSV format message to Siddhi event, this parameter indicatesinput CSV message's data should be split by this parameter </p></td>
         <td style="vertical-align: top">,</td>
         <td style="vertical-align: top">STRING</td>
         <td style="vertical-align: top">Yes</td>
@@ -775,7 +799,7 @@ define stream BarStream (symbol string, price float, volume long);
     </tr>
     <tr>
         <td style="vertical-align: top">fail.on.unknown.attribute</td>
-        <td style="vertical-align: top; word-wrap: break-word">This parameter specifies how unknown attributes should be handled. If it's set to <code>true</code> and one or more attributes don't havevalues, then SP will drop that message. If this parameter is set to <code>false</code>, the Stream Processor adds the required attribute's values to such events with a null value and the event is converted to a Siddhi event.</td>
+        <td style="vertical-align: top; word-wrap: break-word"><p style="word-wrap: break-word;margin: 0;">This parameter specifies how unknown attributes should be handled. If it's set to <code>true</code> and one or more attributes don't havevalues, then SP will drop that message. If this parameter is set to <code>false</code>, the Stream Processor adds the required attribute's values to such events with a null value and the event is converted to a Siddhi event.</p></td>
         <td style="vertical-align: top">true</td>
         <td style="vertical-align: top">BOOL</td>
         <td style="vertical-align: top">Yes</td>
@@ -783,7 +807,7 @@ define stream BarStream (symbol string, price float, volume long);
     </tr>
     <tr>
         <td style="vertical-align: top">event.grouping.enabled</td>
-        <td style="vertical-align: top; word-wrap: break-word">This parameter specifies whether event grouping is enabled or not. To receive a group of events together and generate multiple events, this parameter must be set to <code>true</code>.</td>
+        <td style="vertical-align: top; word-wrap: break-word"><p style="word-wrap: break-word;margin: 0;">This parameter specifies whether event grouping is enabled or not. To receive a group of events together and generate multiple events, this parameter must be set to <code>true</code>.</p></td>
         <td style="vertical-align: top">false</td>
         <td style="vertical-align: top">BOOL</td>
         <td style="vertical-align: top">Yes</td>
@@ -796,19 +820,27 @@ define stream BarStream (symbol string, price float, volume long);
  define stream FooStream (symbol string, price float, volume int); 
 </code></pre>
 
-<p style="word-wrap: break-word">Above configuration will do a default CSV input mapping. Expected input will look like below:<br>&nbsp;WSO2 ,55.6 , 100OR<br>&nbsp;"WSO2,No10,Palam Groove Rd,Col-03" ,55.6 , 100If header.present is true and delimiter is "-", then the input is as follows:<br>symbol-price-volumeWSO2-55.6-100</p>
+<p></p>
+
+<p style="word-wrap: break-word;margin: 0;">Above configuration will do a default CSV input mapping. Expected input will look like below:<br>&nbsp;WSO2 ,55.6 , 100OR<br>&nbsp;"WSO2,No10,Palam Groove Rd,Col-03" ,55.6 , 100If header.present is true and delimiter is "-", then the input is as follows:<br>symbol-price-volumeWSO2-55.6-100</p>
+
+<p></p>
 
 <p><span id="example-2" class="md-typeset" style="display: block; color: rgba(0, 0, 0, 0.54); font-size: 12.8px; font-weight: bold;">EXAMPLE 2</span></p>
 <pre><code>@source(type='inMemory', topic='stock', @map(type='csv',header='true', @attributes(symbol = &quot;2&quot;, price = &quot;0&quot;, volume = &quot;1&quot;)))
 define stream FooStream (symbol string, price float, volume long); 
 </code></pre>
 
-<p style="word-wrap: break-word">Above configuration will perform a custom CSV mapping. Here, user can add place order of each attribute in the @attribute. The place order indicates where the attribute name's value has appeared in the input.Expected input will look like below:<br>55.6,100,WSO2
+<p></p>
+
+<p style="word-wrap: break-word;margin: 0;">Above configuration will perform a custom CSV mapping. Here, user can add place order of each attribute in the @attribute. The place order indicates where the attribute name's value has appeared in the input.Expected input will look like below:<br>55.6,100,WSO2
 <br>OR55.6,100,"WSO2,No10,Palm Groove Rd,Col-03"
 <br>If header is true and delimiter is "-", then the output is as follows:<br>price-volume-symbol
 <br>55.6-100-WSO2
 <br>If group events is enabled then input should be as follows:<br>price-volume-symbol
 <br>55.6-100-WSO2System.lineSeparator()<br>55.6-100-IBMSystem.lineSeparator()<br>55.6-100-IFSSystem.lineSeparator()<br></p>
+
+<p></p>
                 
                   
                 
@@ -844,13 +876,13 @@ define stream FooStream (symbol string, price float, volume long);
           </a>
         
         
-          <a href="../2.0.4/" title="2.0.4" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../2.0.5/" title="2.0.5" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                2.0.4
+                2.0.5
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">
