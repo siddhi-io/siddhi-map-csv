@@ -135,7 +135,7 @@ import java.util.Map;
 public class CSVSourceMapper extends SourceMapper {
 
     private static final Logger log = Logger.getLogger(CSVSourceMapper.class);
-    private static final String MAPPING_DELIMITER = "delimiter";
+    private static final String MAPPING_DELIMETER = "delimiter";
     private static final String MAPPING_HEADER = "header";
     private static final String FAIL_ON_UNKNOWN_ATTRIBUTE = "fail.on.unknown.attribute";
     private static final String OPTION_GROUP_EVENTS = "event.grouping.enabled";
@@ -171,7 +171,7 @@ public class CSVSourceMapper extends SourceMapper {
         this.attributeList = streamDefinition.getAttributeList();
         this.attributeTypeMap = new HashMap<>(attributeList.size());
         this.attributePositionMap = new HashMap<>(attributeList.size());
-        this.delimiter = optionHolder.validateAndGetStaticValue(MAPPING_DELIMITER, ",").charAt(0);
+        this.delimiter = optionHolder.validateAndGetStaticValue(MAPPING_DELIMETER, ",").charAt(0);
         boolean header = Boolean.parseBoolean(optionHolder.validateAndGetStaticValue(MAPPING_HEADER, "false"));
         this.failOnUnknownAttribute = Boolean.parseBoolean(optionHolder.validateAndGetStaticValue(
                 FAIL_ON_UNKNOWN_ATTRIBUTE, DEFAULT_FAIL_ON_UNKNOWN_ATTRIBUTE));
@@ -210,9 +210,7 @@ public class CSVSourceMapper extends SourceMapper {
      * @throws InterruptedException if it does not throw the exception immediately due to streaming
      */
     @Override
-    protected void mapAndProcess(Object eventObject, InputEventHandler inputEventHandler)
-            throws MappingFailedException, InterruptedException {
-        List<ErroneousEvent> failedEvents = new ArrayList<>(0);
+    protected void mapAndProcess(Object eventObject, InputEventHandler inputEventHandler) throws InterruptedException {
         Event[] result = new io.siddhi.core.event.Event[0];
         try {
             if (eventObject == null) {
@@ -227,7 +225,7 @@ public class CSVSourceMapper extends SourceMapper {
                         + eventObject.getClass().getCanonicalName());
             } else {
                 if (pointer != 0) {
-                    result = convertToEvents(eventObject, failedEvents);
+                    result = convertToEvents(eventObject);
                 }
                 pointer++;
             }
