@@ -210,7 +210,9 @@ public class CSVSourceMapper extends SourceMapper {
      * @throws InterruptedException if it does not throw the exception immediately due to streaming
      */
     @Override
-    protected void mapAndProcess(Object eventObject, InputEventHandler inputEventHandler) throws InterruptedException {
+    protected void mapAndProcess(Object eventObject, InputEventHandler inputEventHandler)
+            throws InterruptedException, MappingFailedException {
+        List<ErroneousEvent> failedEvents = new ArrayList<>(0);
         Event[] result = new io.siddhi.core.event.Event[0];
         try {
             if (eventObject == null) {
@@ -225,7 +227,7 @@ public class CSVSourceMapper extends SourceMapper {
                         + eventObject.getClass().getCanonicalName());
             } else {
                 if (pointer != 0) {
-                    result = convertToEvents(eventObject);
+                    result = convertToEvents(eventObject, failedEvents);
                 }
                 pointer++;
             }
