@@ -33,7 +33,8 @@ import io.siddhi.core.util.transport.TemplateBuilder;
 import io.siddhi.query.api.definition.StreamDefinition;
 import io.siddhi.query.api.exception.AttributeNotExistException;
 import org.apache.commons.csv.CSVFormat;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.io.StringWriter;
@@ -111,7 +112,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 )
 
 public class CSVSinkMapper extends SinkMapper {
-    private static final Logger log = Logger.getLogger(CSVSinkMapper.class);
+    private static final Logger log = LogManager.getLogger(CSVSinkMapper.class);
     private static final String HEADER = "header";
     private static final String DELIMITER = "delimiter";
     private static final String OPTION_GROUP_EVENTS = "event.grouping.enabled";
