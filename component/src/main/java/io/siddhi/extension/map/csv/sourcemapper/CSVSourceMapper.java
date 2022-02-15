@@ -37,7 +37,8 @@ import io.siddhi.query.api.definition.Attribute;
 import io.siddhi.query.api.definition.StreamDefinition;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.io.StringReader;
@@ -134,7 +135,7 @@ import java.util.Map;
 
 public class CSVSourceMapper extends SourceMapper {
 
-    private static final Logger log = Logger.getLogger(CSVSourceMapper.class);
+    private static final Logger log = LogManager.getLogger(CSVSourceMapper.class);
     private static final String MAPPING_DELIMETER = "delimiter";
     private static final String MAPPING_HEADER = "header";
     private static final String FAIL_ON_UNKNOWN_ATTRIBUTE = "fail.on.unknown.attribute";

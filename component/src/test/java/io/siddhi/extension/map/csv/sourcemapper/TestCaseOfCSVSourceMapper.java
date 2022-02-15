@@ -25,7 +25,8 @@ import io.siddhi.core.stream.output.StreamCallback;
 import io.siddhi.core.util.EventPrinter;
 import io.siddhi.core.util.SiddhiTestHelper;
 import io.siddhi.core.util.transport.InMemoryBroker;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.testng.AssertJUnit;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -36,7 +37,7 @@ import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.fail;
 
 public class TestCaseOfCSVSourceMapper {
-    private static final Logger log = Logger.getLogger(TestCaseOfCSVSourceMapper.class);
+    private static final Logger log = LogManager.getLogger(TestCaseOfCSVSourceMapper.class);
     private AtomicInteger count = new AtomicInteger();
     private int waitTime = 50;
     private int timeout = 3000;
