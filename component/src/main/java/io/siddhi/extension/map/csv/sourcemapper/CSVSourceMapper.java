@@ -289,7 +289,7 @@ public class CSVSourceMapper extends SourceMapper {
                 }
             } else {
                 for (CSVRecord record : CSVFormat.DEFAULT.withDelimiter(delimiter)
-                        .withQuote(null).parse(new java.io.StringReader(String.valueOf(eventObject)))) {
+                        .withQuote('\"').parse(new java.io.StringReader(String.valueOf(eventObject)))) {
                     List<String> dataList = new ArrayList<>();
                     for (String field : record) {
                         dataList.add(field);
