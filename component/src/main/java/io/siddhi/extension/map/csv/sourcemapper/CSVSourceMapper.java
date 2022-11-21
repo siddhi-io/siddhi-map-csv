@@ -172,7 +172,8 @@ public class CSVSourceMapper extends SourceMapper {
         this.attributeList = streamDefinition.getAttributeList();
         this.attributeTypeMap = new HashMap<>(attributeList.size());
         this.attributePositionMap = new HashMap<>(attributeList.size());
-        this.delimiter = optionHolder.validateAndGetStaticValue(MAPPING_DELIMETER, ",").charAt(0);
+        String delimiterValue = optionHolder.validateAndGetStaticValue(MAPPING_DELIMETER, ",");
+        this.delimiter = "\\t".equals(delimiterValue) ? '\t' : delimiterValue.charAt(0);
         boolean header = Boolean.parseBoolean(optionHolder.validateAndGetStaticValue(MAPPING_HEADER, "false"));
         this.failOnUnknownAttribute = Boolean.parseBoolean(optionHolder.validateAndGetStaticValue(
                 FAIL_ON_UNKNOWN_ATTRIBUTE, DEFAULT_FAIL_ON_UNKNOWN_ATTRIBUTE));
@@ -265,8 +266,9 @@ public class CSVSourceMapper extends SourceMapper {
         Event event = null;
         try {
             if (eventGroupEnabled) {
-                for (CSVRecord record : CSVFormat.DEFAULT.withDelimiter(delimiter).
-                        withRecordSeparator(System.lineSeparator()).withQuote('\"')
+                for (CSVRecord record : getFormatter(delimiter)
+                        .withRecordSeparator(System.lineSeparator())
+                        .withQuote('\"')
                         .parse(new StringReader(String.valueOf(eventObject)))) {
                     List<String> dataList = new ArrayList<>();
                     int listPosition = 0;
@@ -288,8 +290,8 @@ public class CSVSourceMapper extends SourceMapper {
                     }
                 }
             } else {
-                for (CSVRecord record : CSVFormat.DEFAULT.withDelimiter(delimiter)
-                        .withQuote('\"').parse(new java.io.StringReader(String.valueOf(eventObject)))) {
+                for (CSVRecord record : getFormatter(delimiter)
+                        .parse(new java.io.StringReader(String.valueOf(eventObject)))) {
                     List<String> dataList = new ArrayList<>();
                     for (String field : record) {
                         dataList.add(field);
@@ -312,6 +314,19 @@ public class CSVSourceMapper extends SourceMapper {
             log.error("[ERROR] Fail to create the CSV parser of siddhi CSV input mapper: ", e);
         }
         return eventList.toArray(new Event[0]);
+    }
+
+    /**
+     * Get CSV Formatter based on the delimiter type.
+     *
+     * @param delimiter
+     * @return
+     */
+    private CSVFormat getFormatter(char delimiter) {
+        if (delimiter == '\t') {
+            return CSVFormat.TDF;
+        }
+        return CSVFormat.DEFAULT.withDelimiter(delimiter);
     }
 
     /**

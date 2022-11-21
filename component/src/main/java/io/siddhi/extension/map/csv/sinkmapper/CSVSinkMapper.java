@@ -159,7 +159,8 @@ public class CSVSinkMapper extends SinkMapper {
         this.header = Boolean.parseBoolean(optionHolder.getOrCreateOption(HEADER, DEFAULT_HEADER).getValue());
         this.eventGroupEnabled = Boolean.valueOf(optionHolder.validateAndGetStaticValue(OPTION_GROUP_EVENTS,
                                                                                         DEFAULT_GROUP_EVENTS));
-        this.delimiter = optionHolder.getOrCreateOption(DELIMITER, DEFAULT_DELIMITER).getValue().charAt(0);
+        String delimiterValue = optionHolder.getOrCreateOption(DELIMITER, DEFAULT_DELIMITER).getValue();
+        this.delimiter = "\\t".equals(delimiterValue) ? '\t' : delimiterValue.charAt(0);
         headerOfData = new Object[streamDefinition.getAttributeNameArray().length];
         if (payloadTemplateBuilderMap == null) {
             dataOfEvent = new Object[streamDefinition.getAttributeNameArray().length];
