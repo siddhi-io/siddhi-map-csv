@@ -589,4 +589,59 @@ public class TestCaseOfCSVSourceMapper {
         assertEquals(count.get(), 6);
         siddhiAppRuntime.shutdown();
     }
+
+    @Test
+    public void testTSVInputDefaultMapping() throws Exception {
+        log.info("_________________Test case for tsv input with default mapping____________________");
+
+        String streams = "" +
+                "@App:name('TestSiddhiApp')" +
+                "@source(type='inMemory', topic='stock', @map(type='csv', delimiter='\\t')) " +
+                "define stream FooStream (symbol string, price float, volume int); " +
+                "define stream BarStream (symbol string, price float, volume int); ";
+
+        String query = "" +
+                "from FooStream " +
+                "select * " +
+                "insert into BarStream; ";
+
+        SiddhiManager siddhiManager = new SiddhiManager();
+        SiddhiAppRuntime executionPlanRuntime = siddhiManager.createSiddhiAppRuntime(streams + query);
+
+        executionPlanRuntime.addCallback("BarStream", new StreamCallback() {
+
+            @Override
+            public void receive(Event[] events) {
+                for (Event event : events) {
+                    switch (count.incrementAndGet()) {
+                        case 1:
+                            assertEquals(55.689f, event.getData(1));
+                            assertEquals("null", event.getData(0));
+                            break;
+                        case 2:
+                            assertEquals(75.0f, event.getData(1));
+                            assertEquals("IBM@#$%^*", event.getData(0));
+                            break;
+                        case 3:
+                            assertEquals(" ", event.getData(1));
+                            break;
+                        default:
+                            fail();
+                    }
+                }
+            }
+        });
+        executionPlanRuntime.start();
+        InMemoryBroker.publish("stock", "null\t55.689\t100");
+        InMemoryBroker.publish("stock", "IBM@#$%^*\t75\tnull");
+        InMemoryBroker.publish("stock", " WSO2\tnull\t10");
+        InMemoryBroker.publish("stock", " WSO2\t55.6\taa");
+        InMemoryBroker.publish("stock", " WSO2\tabb\t10");
+        InMemoryBroker.publish("stock", " WSO2\tbb\t10.6");
+        SiddhiTestHelper.waitForEvents(waitTime, 1, count, timeout);
+        //assert event count
+        AssertJUnit.assertEquals("Number of events", 1, count.get());
+        executionPlanRuntime.shutdown();
+        siddhiManager.shutdown();
+    }
 }

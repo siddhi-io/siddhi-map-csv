@@ -142,6 +142,8 @@ public class CSVSourceMapper extends SourceMapper {
     private static final String OPTION_GROUP_EVENTS = "event.grouping.enabled";
     private static final String DEFAULT_FAIL_ON_UNKNOWN_ATTRIBUTE = "true";
     private static final String DEFAULT_EVENT_GROUP = "false";
+    private static final String TAB_DElIMITER_INPUT = "\\t";
+    private static final char TAB_DElIMITER = '\t';
 
     private boolean isCustomMappingEnabled = false;
     private StreamDefinition streamDefinition;
@@ -173,7 +175,7 @@ public class CSVSourceMapper extends SourceMapper {
         this.attributeTypeMap = new HashMap<>(attributeList.size());
         this.attributePositionMap = new HashMap<>(attributeList.size());
         String delimiterValue = optionHolder.validateAndGetStaticValue(MAPPING_DELIMETER, ",");
-        this.delimiter = "\\t".equals(delimiterValue) ? '\t' : delimiterValue.charAt(0);
+        this.delimiter = TAB_DElIMITER_INPUT.equals(delimiterValue) ? TAB_DElIMITER : delimiterValue.charAt(0);
         boolean header = Boolean.parseBoolean(optionHolder.validateAndGetStaticValue(MAPPING_HEADER, "false"));
         this.failOnUnknownAttribute = Boolean.parseBoolean(optionHolder.validateAndGetStaticValue(
                 FAIL_ON_UNKNOWN_ATTRIBUTE, DEFAULT_FAIL_ON_UNKNOWN_ATTRIBUTE));
@@ -323,7 +325,7 @@ public class CSVSourceMapper extends SourceMapper {
      * @return
      */
     private CSVFormat getFormatter(char delimiter) {
-        if (delimiter == '\t') {
+        if (delimiter == TAB_DElIMITER) {
             return CSVFormat.TDF;
         }
         return CSVFormat.DEFAULT.withDelimiter(delimiter);
