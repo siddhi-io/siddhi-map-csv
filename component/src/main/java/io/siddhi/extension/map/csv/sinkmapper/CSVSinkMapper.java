@@ -119,6 +119,8 @@ public class CSVSinkMapper extends SinkMapper {
     private static final String DEFAULT_GROUP_EVENTS = "false";
     private static final String DEFAULT_HEADER = "false";
     private static final String DEFAULT_DELIMITER = ",";
+    private static final String TAB_DElIMITER_INPUT = "\\t";
+    private static final char TAB_DElIMITER = '\t';
 
     private StreamDefinition streamDefinition;
     private boolean eventGroupEnabled;
@@ -159,7 +161,8 @@ public class CSVSinkMapper extends SinkMapper {
         this.header = Boolean.parseBoolean(optionHolder.getOrCreateOption(HEADER, DEFAULT_HEADER).getValue());
         this.eventGroupEnabled = Boolean.valueOf(optionHolder.validateAndGetStaticValue(OPTION_GROUP_EVENTS,
                                                                                         DEFAULT_GROUP_EVENTS));
-        this.delimiter = optionHolder.getOrCreateOption(DELIMITER, DEFAULT_DELIMITER).getValue().charAt(0);
+        String delimiterValue = optionHolder.getOrCreateOption(DELIMITER, DEFAULT_DELIMITER).getValue();
+        this.delimiter = TAB_DElIMITER_INPUT.equals(delimiterValue) ? TAB_DElIMITER : delimiterValue.charAt(0);
         headerOfData = new Object[streamDefinition.getAttributeNameArray().length];
         if (payloadTemplateBuilderMap == null) {
             dataOfEvent = new Object[streamDefinition.getAttributeNameArray().length];
