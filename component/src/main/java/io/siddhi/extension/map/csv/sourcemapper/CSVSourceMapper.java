@@ -148,7 +148,7 @@ public class CSVSourceMapper extends SourceMapper {
     private boolean isCustomMappingEnabled = false;
     private StreamDefinition streamDefinition;
     private boolean failOnUnknownAttribute;
-    private Character delimiter;
+    private Object delimiter;
     private boolean eventGroupEnabled;
     private AttributeConverter attributeConverter = new AttributeConverter();
     private List<Attribute> attributeList;
@@ -175,7 +175,13 @@ public class CSVSourceMapper extends SourceMapper {
         this.attributeTypeMap = new HashMap<>(attributeList.size());
         this.attributePositionMap = new HashMap<>(attributeList.size());
         String delimiterValue = optionHolder.validateAndGetStaticValue(MAPPING_DELIMETER, ",");
-        this.delimiter = TAB_DElIMITER_INPUT.equals(delimiterValue) ? TAB_DElIMITER : delimiterValue.charAt(0);
+        if (TAB_DElIMITER_INPUT.equals(delimiterValue)) {
+            this.delimiter = TAB_DElIMITER;
+        } else if (delimiterValue.length() > 1) {
+            this.delimiter = delimiterValue;
+        } else {
+            this.delimiter = delimiterValue.charAt(0);
+        }
         boolean header = Boolean.parseBoolean(optionHolder.validateAndGetStaticValue(MAPPING_HEADER, "false"));
         this.failOnUnknownAttribute = Boolean.parseBoolean(optionHolder.validateAndGetStaticValue(
                 FAIL_ON_UNKNOWN_ATTRIBUTE, DEFAULT_FAIL_ON_UNKNOWN_ATTRIBUTE));
@@ -219,11 +225,11 @@ public class CSVSourceMapper extends SourceMapper {
         List<ErroneousEvent> failedEvents = new ArrayList<>(0);
         Event[] result = new io.siddhi.core.event.Event[0];
         try {
-            if (eventObject == null) {
+            if (eventObject == null && failOnUnknownAttribute) {
                 failedEvents.add(new ErroneousEvent(null,
                         "Null object received from the Source to CSVsourceMapper"));
                 throw new SiddhiAppRuntimeException("Null object received from the Source to CSVsourceMapper");
-            } else if (!(eventObject instanceof String)) {
+            } else if (!(eventObject instanceof String) && failOnUnknownAttribute) {
                 failedEvents.add(new ErroneousEvent(null,
                         "Invalid input supported type received. Expected String, but found"
                                 + eventObject.getClass().getCanonicalName()));
@@ -239,15 +245,17 @@ public class CSVSourceMapper extends SourceMapper {
                 inputEventHandler.sendEvents(result);
             }
         } catch (Throwable t) {
-            log.error("[Error] when converting the event from CSV message: " + String.valueOf(eventObject) +
-                    " to Siddhi Event in the stream " + streamDefinition.getId() +
-                    " of siddhi CSV input mapper.", t);
-            failedEvents.add(new ErroneousEvent(eventObject, t,
-                    "[Error] when converting the event from CSV message: " + eventObject +
-                            " to Siddhi Event in the stream " + streamDefinition.getId() +
-                            " of siddhi CSV input mapper."));
+            if (failOnUnknownAttribute) {
+                log.error("[Error] when converting the event from CSV message: " + String.valueOf(eventObject) +
+                        " to Siddhi Event in the stream " + streamDefinition.getId() +
+                        " of siddhi CSV input mapper.", t);
+                failedEvents.add(new ErroneousEvent(eventObject, t,
+                        "[Error] when converting the event from CSV message: " + eventObject +
+                                " to Siddhi Event in the stream " + streamDefinition.getId() +
+                                " of siddhi CSV input mapper."));
+            }
         }
-        if (!failedEvents.isEmpty()) {
+        if (!failedEvents.isEmpty() && failOnUnknownAttribute) {
             throw new MappingFailedException(failedEvents);
         }
     }
@@ -324,11 +332,16 @@ public class CSVSourceMapper extends SourceMapper {
      * @param delimiter
      * @return
      */
-    private CSVFormat getFormatter(char delimiter) {
-        if (delimiter == TAB_DElIMITER) {
-            return CSVFormat.TDF;
+    private CSVFormat getFormatter(Object delimiter) {
+        CSVFormat csvFormat;
+        if (delimiter instanceof Character) {
+           csvFormat = (Character) delimiter == TAB_DElIMITER ? CSVFormat.TDF :
+                   CSVFormat.Builder.create().setDelimiter((char) delimiter).build();
+        } else {
+            csvFormat = CSVFormat.Builder.create().setDelimiter(delimiter.toString()).build();
         }
-        return CSVFormat.DEFAULT.withDelimiter(delimiter);
+
+        return csvFormat;
     }
 
     /**
