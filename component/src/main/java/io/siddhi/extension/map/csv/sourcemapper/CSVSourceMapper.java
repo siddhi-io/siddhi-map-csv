@@ -46,6 +46,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * This mapper converts CSV string input to {@link io.siddhi.core.event.ComplexEventChunk}.
@@ -143,12 +144,12 @@ public class CSVSourceMapper extends SourceMapper {
     private static final String DEFAULT_FAIL_ON_UNKNOWN_ATTRIBUTE = "true";
     private static final String DEFAULT_EVENT_GROUP = "false";
     private static final String TAB_DElIMITER_INPUT = "\\t";
-    private static final char TAB_DElIMITER = '\t';
+    private static final String TAB_DElIMITER = "\t";
 
     private boolean isCustomMappingEnabled = false;
     private StreamDefinition streamDefinition;
     private boolean failOnUnknownAttribute;
-    private Object delimiter;
+    private String delimiter;
     private boolean eventGroupEnabled;
     private AttributeConverter attributeConverter = new AttributeConverter();
     private List<Attribute> attributeList;
@@ -175,13 +176,7 @@ public class CSVSourceMapper extends SourceMapper {
         this.attributeTypeMap = new HashMap<>(attributeList.size());
         this.attributePositionMap = new HashMap<>(attributeList.size());
         String delimiterValue = optionHolder.validateAndGetStaticValue(MAPPING_DELIMETER, ",");
-        if (TAB_DElIMITER_INPUT.equals(delimiterValue)) {
-            this.delimiter = TAB_DElIMITER;
-        } else if (delimiterValue.length() > 1) {
-            this.delimiter = delimiterValue;
-        } else {
-            this.delimiter = delimiterValue.charAt(0);
-        }
+        this.delimiter = TAB_DElIMITER_INPUT.equals(delimiterValue) ? TAB_DElIMITER : delimiterValue;
         boolean header = Boolean.parseBoolean(optionHolder.validateAndGetStaticValue(MAPPING_HEADER, "false"));
         this.failOnUnknownAttribute = Boolean.parseBoolean(optionHolder.validateAndGetStaticValue(
                 FAIL_ON_UNKNOWN_ATTRIBUTE, DEFAULT_FAIL_ON_UNKNOWN_ATTRIBUTE));
@@ -332,16 +327,10 @@ public class CSVSourceMapper extends SourceMapper {
      * @param delimiter
      * @return
      */
-    private CSVFormat getFormatter(Object delimiter) {
-        CSVFormat csvFormat;
-        if (delimiter instanceof Character) {
-           csvFormat = (Character) delimiter == TAB_DElIMITER ? CSVFormat.TDF :
-                   CSVFormat.Builder.create().setDelimiter((char) delimiter).build();
-        } else {
-            csvFormat = CSVFormat.Builder.create().setDelimiter(delimiter.toString()).build();
-        }
+    private CSVFormat getFormatter(String delimiter) {
+        return Objects.equals(delimiter, TAB_DElIMITER) ? CSVFormat.TDF :
+                CSVFormat.Builder.create().setDelimiter(delimiter).build();
 
-        return csvFormat;
     }
 
     /**

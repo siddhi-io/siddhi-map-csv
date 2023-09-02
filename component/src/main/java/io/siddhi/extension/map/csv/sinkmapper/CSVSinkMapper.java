@@ -67,14 +67,14 @@ import java.util.concurrent.atomic.AtomicBoolean;
                         optional = true, defaultValue = "false",
                         type = {DataType.BOOL}),
                 @Parameter(name = "event.grouping.enabled",
-                           description =
-                                   "If this parameter is set to `true`, events are grouped via a line.separator" +
-                                           " when multiple events are received. It is required to specify " +
-                                           "a value for the System.lineSeparator() when the value for this parameter" +
-                                           " is `true`.",
-                           type = {DataType.BOOL},
-                           optional = true,
-                           defaultValue = "false"),
+                        description =
+                                "If this parameter is set to `true`, events are grouped via a line.separator" +
+                                        " when multiple events are received. It is required to specify " +
+                                        "a value for the System.lineSeparator() when the value for this parameter" +
+                                        " is `true`.",
+                        type = {DataType.BOOL},
+                        optional = true,
+                        defaultValue = "false"),
         },
         examples = {
                 @Example(
@@ -120,11 +120,11 @@ public class CSVSinkMapper extends SinkMapper {
     private static final String DEFAULT_HEADER = "false";
     private static final String DEFAULT_DELIMITER = ",";
     private static final String TAB_DElIMITER_INPUT = "\\t";
-    private static final char TAB_DElIMITER = '\t';
+    private static final String TAB_DElIMITER = "\t";
 
     private StreamDefinition streamDefinition;
     private boolean eventGroupEnabled;
-    private char delimiter;
+    private String delimiter;
     private Boolean header;
     private Object[] headerOfData;
     private Object[] dataOfEvent;
@@ -160,9 +160,9 @@ public class CSVSinkMapper extends SinkMapper {
         this.streamDefinition = streamDefinition;
         this.header = Boolean.parseBoolean(optionHolder.getOrCreateOption(HEADER, DEFAULT_HEADER).getValue());
         this.eventGroupEnabled = Boolean.valueOf(optionHolder.validateAndGetStaticValue(OPTION_GROUP_EVENTS,
-                                                                                        DEFAULT_GROUP_EVENTS));
+                DEFAULT_GROUP_EVENTS));
         String delimiterValue = optionHolder.getOrCreateOption(DELIMITER, DEFAULT_DELIMITER).getValue();
-        this.delimiter = TAB_DElIMITER_INPUT.equals(delimiterValue) ? TAB_DElIMITER : delimiterValue.charAt(0);
+        this.delimiter = TAB_DElIMITER_INPUT.equals(delimiterValue) ? TAB_DElIMITER : delimiterValue;
         headerOfData = new Object[streamDefinition.getAttributeNameArray().length];
         if (payloadTemplateBuilderMap == null) {
             dataOfEvent = new Object[streamDefinition.getAttributeNameArray().length];
@@ -202,8 +202,8 @@ public class CSVSinkMapper extends SinkMapper {
                                             + streamDefinition.getId() + "' of siddhi CSV input mapper.");
                         } catch (AttributeNotExistException e) {
                             log.error("[ERROR] when arranging the attribute order, " + entry.getKey() +
-                                              " isn't in the '" + streamDefinition.getId() +
-                                              "' of siddhi custom CSV input mapper.");
+                                    " isn't in the '" + streamDefinition.getId() +
+                                    "' of siddhi custom CSV input mapper.");
                         }
                     }
                 }
@@ -235,12 +235,9 @@ public class CSVSinkMapper extends SinkMapper {
                            Map<String, TemplateBuilder> payloadTemplateBuilderMap, SinkListener sinkListener) {
         try {
             if (isAddHeader) {
-                CSVFormat.DEFAULT
-                        .withDelimiter(delimiter)
-                        .withRecordSeparator(System.lineSeparator())
-                        .withNullString("null")
-                        .withQuote('\"')
-                        .printRecord(stringWriter, headerOfData);
+                CSVFormat.Builder.create().setDelimiter(delimiter)
+                        .setRecordSeparator(System.lineSeparator())
+                        .setNullString("null").setQuote('\"').build().printRecord(stringWriter, headerOfData);
                 sinkListener.publish(stringWriter.toString());
                 isAddHeader = false;
                 stringWriter.getBuffer().setLength(0);
@@ -252,12 +249,11 @@ public class CSVSinkMapper extends SinkMapper {
                             dataOfEvent[i] = event.getData(streamDefinition.getAttributePosition(
                                     headerOfData[i].toString()));
                         }
-                        CSVFormat.DEFAULT
-                                .withDelimiter(delimiter)
-                                .withNullString("null")
-                                .withQuote('\"')
-                                .withRecordSeparator(System.lineSeparator())
-                                .printRecord(stringWriter, dataOfEvent);
+                        CSVFormat.Builder.create().setDelimiter(delimiter)
+                                .setNullString("null")
+                                .setQuote('\"')
+                                .setRecordSeparator(System.lineSeparator())
+                                .build().printRecord(stringWriter, dataOfEvent);
                     }
                     sinkListener.publish(stringWriter.toString());
                     stringWriter.getBuffer().setLength(0);
@@ -267,11 +263,10 @@ public class CSVSinkMapper extends SinkMapper {
                             dataOfEvent[i] = event.getData(streamDefinition.getAttributePosition(
                                     headerOfData[i].toString()));
                         }
-                        CSVFormat.DEFAULT
-                                .withDelimiter(delimiter)
-                                .withRecordSeparator(System.lineSeparator())
-                                .withNullString("null")
-                                .withQuote('\"')
+                        CSVFormat.Builder.create().setDelimiter(delimiter)
+                                .setRecordSeparator(System.lineSeparator())
+                                .setNullString("null")
+                                .setQuote('\"').build()
                                 .printRecord(stringWriter, dataOfEvent);
                         sinkListener.publish(stringWriter.toString());
                         stringWriter.getBuffer().setLength(0);
@@ -281,11 +276,11 @@ public class CSVSinkMapper extends SinkMapper {
                 if (eventGroupEnabled) {
                     for (Event event : events) {
                         dataOfEvent = event.getData();
-                        CSVFormat.DEFAULT
-                                .withDelimiter(delimiter)
-                                .withNullString("null")
-                                .withQuote('\"')
-                                .withRecordSeparator(System.lineSeparator())
+                        CSVFormat.Builder.create()
+                                .setDelimiter(delimiter)
+                                .setNullString("null")
+                                .setQuote('\"')
+                                .setRecordSeparator(System.lineSeparator()).build()
                                 .printRecord(stringWriter, dataOfEvent);
                     }
                     sinkListener.publish(stringWriter.toString());
@@ -293,11 +288,11 @@ public class CSVSinkMapper extends SinkMapper {
                 } else {
                     for (Event event : events) {
                         dataOfEvent = event.getData();
-                        CSVFormat.DEFAULT
-                                .withDelimiter(delimiter)
-                                .withRecordSeparator(System.lineSeparator())
-                                .withNullString("null")
-                                .withQuote('\"')
+                        CSVFormat.Builder.create()
+                                .setDelimiter(delimiter)
+                                .setRecordSeparator(System.lineSeparator())
+                                .setNullString("null")
+                                .setQuote('\"').build()
                                 .printRecord(stringWriter, dataOfEvent);
                         sinkListener.publish(stringWriter.toString());
                         stringWriter.getBuffer().setLength(0);
@@ -306,7 +301,7 @@ public class CSVSinkMapper extends SinkMapper {
             }
         } catch (IOException e) {
             log.error("[ERROR] Fail to print the data in csv format from Siddhi event in the stream  '"
-                              + streamDefinition.getId() + "' of siddhi CSV output mapper.", e);
+                    + streamDefinition.getId() + "' of siddhi CSV output mapper.", e);
         }
 
     }
@@ -332,21 +327,21 @@ public class CSVSinkMapper extends SinkMapper {
                 dataOfEvent = event.getData();
             }
             if (isAddHeader) {
-                CSVFormat.DEFAULT
-                        .withDelimiter(delimiter)
-                        .withRecordSeparator(System.lineSeparator())
-                        .withNullString("null")
-                        .withQuote('\"')
+                CSVFormat.Builder.create()
+                        .setDelimiter(delimiter)
+                        .setRecordSeparator(System.lineSeparator())
+                        .setNullString("null")
+                        .setQuote('\"').build()
                         .printRecord(stringWriter, headerOfData);
                 sinkListener.publish(stringWriter.toString());
                 isAddHeader = false;
                 stringWriter.getBuffer().setLength(0);
             }
-            CSVFormat.DEFAULT
-                    .withDelimiter(delimiter)
-                    .withRecordSeparator(System.lineSeparator())
-                    .withNullString("null")
-                    .withQuote('\"')
+            CSVFormat.Builder.create()
+                    .setDelimiter(delimiter)
+                    .setRecordSeparator(System.lineSeparator())
+                    .setNullString("null")
+                    .setQuote('\"').build()
                     .printRecord(stringWriter, dataOfEvent);
             sinkListener.publish(stringWriter.toString());
             stringWriter.getBuffer().setLength(0);
