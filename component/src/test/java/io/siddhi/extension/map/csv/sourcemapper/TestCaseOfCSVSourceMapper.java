@@ -84,7 +84,7 @@ public class TestCaseOfCSVSourceMapper {
                             assertEquals("IBM@#$%^*", event.getData(0));
                             break;
                         case 3:
-                            assertEquals(" ", event.getData(1));
+                            assertEquals(10.1f, event.getData(1));
                             break;
                         default:
                             fail();
@@ -94,14 +94,12 @@ public class TestCaseOfCSVSourceMapper {
         });
         executionPlanRuntime.start();
         InMemoryBroker.publish("stock", "null,55.689,100");
-        InMemoryBroker.publish("stock", "IBM@#$%^*,75,null");
-        InMemoryBroker.publish("stock", " WSO2,null,10");
-        InMemoryBroker.publish("stock", " WSO2,55.6,aa");
-        InMemoryBroker.publish("stock", " WSO2,abb,10");
-        InMemoryBroker.publish("stock", " WSO2,bb,10.6");
-        SiddhiTestHelper.waitForEvents(waitTime, 1, count, timeout);
+        InMemoryBroker.publish("stock", "IBM@#$%^*,75,0");
+        InMemoryBroker.publish("stock", " WSO2,10.1,10");
+
+        SiddhiTestHelper.waitForEvents(waitTime, 3, count, timeout);
         //assert event count
-        AssertJUnit.assertEquals("Number of events", 1, count.get());
+        AssertJUnit.assertEquals("Number of events", 3, count.get());
         executionPlanRuntime.shutdown();
         siddhiManager.shutdown();
     }
@@ -129,6 +127,7 @@ public class TestCaseOfCSVSourceMapper {
             @Override
             public void receive(Event[] events) {
                 for (Event event : events) {
+                    log.info("Received Event: " + event);
                     switch (count.incrementAndGet()) {
                         case 1:
                             assertEquals(55.6f, event.getData(1));
@@ -261,7 +260,7 @@ public class TestCaseOfCSVSourceMapper {
 
         String streams = "" +
                 "@App:name('TestSiddhiApp')" +
-                "@source(type='inMemory', topic='stock', @map(type='csv',fail.on.unknown.attribute=\"false\"," +
+                "@source(type='inMemory', topic='stock', @map(type='csv', fail.on.unknown.attribute=\"false\"," +
                 "@attributes(symbol=\"2\",price =\"0\",volume =\"1\"))) " +
                 "define stream FooStream (symbol string, price float, volume int); " +
                 "define stream BarStream (symbol string, price float, volume int); ";
@@ -346,6 +345,7 @@ public class TestCaseOfCSVSourceMapper {
             public void receive(Event[] events) {
                 EventPrinter.print(events);
                 for (Event event : events) {
+                    log.info("Received event: " + event);
                     switch (count.incrementAndGet()) {
                         case 1:
                             assertEquals(55.689f, event.getData(1));
@@ -613,6 +613,7 @@ public class TestCaseOfCSVSourceMapper {
             @Override
             public void receive(Event[] events) {
                 for (Event event : events) {
+                    log.info("Received event: " + event);
                     switch (count.incrementAndGet()) {
                         case 1:
                             assertEquals(55.689f, event.getData(1));
@@ -623,7 +624,16 @@ public class TestCaseOfCSVSourceMapper {
                             assertEquals("IBM@#$%^*", event.getData(0));
                             break;
                         case 3:
-                            assertEquals(" ", event.getData(1));
+                            assertEquals(0.0f, event.getData(1));
+                            break;
+                        case 4:
+                            assertEquals(event.getData(2), 10);
+                            break;
+                        case 5:
+                            assertEquals(event.getData(0), "WSO2");
+                            break;
+                        case 6:
+                            assertEquals(event.getData(1), 00.3f);
                             break;
                         default:
                             fail();
@@ -633,14 +643,63 @@ public class TestCaseOfCSVSourceMapper {
         });
         executionPlanRuntime.start();
         InMemoryBroker.publish("stock", "null\t55.689\t100");
-        InMemoryBroker.publish("stock", "IBM@#$%^*\t75\tnull");
-        InMemoryBroker.publish("stock", " WSO2\tnull\t10");
-        InMemoryBroker.publish("stock", " WSO2\t55.6\taa");
-        InMemoryBroker.publish("stock", " WSO2\tabb\t10");
-        InMemoryBroker.publish("stock", " WSO2\tbb\t10.6");
-        SiddhiTestHelper.waitForEvents(waitTime, 1, count, timeout);
+        InMemoryBroker.publish("stock", "IBM@#$%^*\t75\t0");
+        InMemoryBroker.publish("stock", " WSO2\t0\t10");
+        InMemoryBroker.publish("stock", " WSO2\t55.6\t10");
+        InMemoryBroker.publish("stock", " WSO2\t66.5\t10");
+        InMemoryBroker.publish("stock", " WSO2\t00.3\t16");
+        SiddhiTestHelper.waitForEvents(waitTime, 6, count, timeout);
         //assert event count
-        AssertJUnit.assertEquals("Number of events", 1, count.get());
+        AssertJUnit.assertEquals("Number of events", 6, count.get());
+        executionPlanRuntime.shutdown();
+        siddhiManager.shutdown();
+    }
+
+    @Test
+    public void testCSVInputDefaultMappingMultipleEventWithMultiCharacterDelimiter() throws Exception {
+        log.info("_____Test case for csv default mapping for multiple events with header and multi character" +
+                " delimiter______");
+
+        String streams = "" +
+                "@App:name('TestSiddhiApp')" +
+                "@source(type='inMemory', topic='stock', @map(type='csv', header='true',delimiter='-/-')) " +
+                "define stream FooStream (symbol string, price float, volume long); " +
+                "define stream BarStream (symbol string, price float, volume long); ";
+
+        String query = "" +
+                "from FooStream " +
+                "select * " +
+                "insert into BarStream; ";
+
+        SiddhiManager siddhiManager = new SiddhiManager();
+        SiddhiAppRuntime executionPlanRuntime = siddhiManager.createSiddhiAppRuntime(streams + query);
+
+        executionPlanRuntime.addCallback("BarStream", new StreamCallback() {
+
+            @Override
+            public void receive(Event[] events) {
+                for (Event event : events) {
+                    log.info("Received Event: " + event);
+                    switch (count.incrementAndGet()) {
+                        case 1:
+                            assertEquals(event.getData(1), 55.6f);
+                            break;
+                        case 2:
+                            assertEquals(event.getData(0), "IBM");
+                            break;
+                        default:
+                            fail();
+                    }
+                }
+            }
+        });
+        executionPlanRuntime.start();
+        InMemoryBroker.publish("stock", "symbol-/-price-/-volume");
+        InMemoryBroker.publish("stock", "WSO2-/-55.6-/-100");
+        InMemoryBroker.publish("stock", "IBM-/-75.6-/-10");
+        SiddhiTestHelper.waitForEvents(waitTime, 2, count, timeout);
+        //assert event count
+        AssertJUnit.assertEquals("Number of events", 2, count.get());
         executionPlanRuntime.shutdown();
         siddhiManager.shutdown();
     }
