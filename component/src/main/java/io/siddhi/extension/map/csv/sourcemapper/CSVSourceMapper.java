@@ -241,9 +241,10 @@ public class CSVSourceMapper extends SourceMapper {
             }
         } catch (Throwable t) {
             if (failOnUnknownAttribute) {
-                log.error("[Error] when converting the event from CSV message: " + String.valueOf(eventObject) +
-                        " to Siddhi Event in the stream " + streamDefinition.getId() +
-                        " of siddhi CSV input mapper.", t);
+                log.error(
+                        "[Error] when converting the event from CSV message: {} to Siddhi Event in the stream {} of " +
+                                "siddhi CSV input mapper.",
+                        String.valueOf(eventObject), streamDefinition.getId(), t);
                 failedEvents.add(new ErroneousEvent(eventObject, t,
                         "[Error] when converting the event from CSV message: " + eventObject +
                                 " to Siddhi Event in the stream " + streamDefinition.getId() +
@@ -359,7 +360,10 @@ public class CSVSourceMapper extends SourceMapper {
                                 + "event '" + event.toString() + "' when check the event data in "
                                 + "the stream '" + streamDefinition.getId()
                                 + "' of siddhi CSV input mapper.";
-                        log.error(errMsg);
+                        log.error(
+                                "Invalid format of event because some required attributes are missing in the event " +
+                                        "'{}' when check the event data in the stream '{}' of siddhi CSV input mapper.",
+                                event.toString(), streamDefinition.getId());
                         throw new MappingFailedException(errMsg);
                     }
                     data[attributePositionMap.get(attributeName)] = dataValue;
@@ -369,13 +373,16 @@ public class CSVSourceMapper extends SourceMapper {
                                 " is" + eventRecords.get(j) + " and attribute type is " + type +
                                 " in the stream " + streamDefinition.getId() +
                                 " of siddhi csv input mapper.";
-                        log.error(errMsg);
+                        log.error(
+                                "Incompatible data format. Because value of {} is{} and attribute type is {} in the " +
+                                        "stream {} of siddhi csv input mapper.",
+                                attributeName, eventRecords.get(j), type, streamDefinition.getId());
                         throw new MappingFailedException(errMsg);
                     }
                 }
             } else {
-                log.warn("Attribute : " + attributeList.get(j).getName() + "is not found in given" +
-                        "stream definition. Hence ignoring this attribute");
+                log.warn("Attribute : {}is not found in givenstream definition. Hence ignoring this attribute",
+                        attributeList.get(j).getName());
                 return null;
             }
         }
@@ -404,21 +411,26 @@ public class CSVSourceMapper extends SourceMapper {
                     dataValue = attributeConverter.getPropertyValue(eventRecords.get(position), type);
                 }
                 if (dataValue == null && failOnUnknownAttribute) {
+                    log.error(
+                            "Invalid format of event because some required attributes are missing in the event '{}' " +
+                                    "when check the event data in the stream '{}' of siddhi CSV input mapper.",
+                            event.toString(), streamDefinition.getId());
                     String errMsg = "Invalid format of event because some required attributes are missing in the "
                             + "event '" + event.toString() + "' when check the event data in "
                             + "the stream '" + streamDefinition.getId()
                             + "' of siddhi CSV input mapper.";
-                    log.error(errMsg);
                     throw new MappingFailedException(errMsg);
                 }
                 data[attributeMapping.getPosition()] = dataValue;
             } catch (SiddhiAppRuntimeException | NumberFormatException | MappingFailedException e) {
                 if (failOnUnknownAttribute) {
+                    log.error("Incompatible data format. Because value of '{}' is {} and attribute type is {} in the " +
+                                    "stream {} of siddhi csv input mapper.",
+                            attributeMapping.getName(), eventRecords.get(position), type, streamDefinition.getId());
                     String errMsg = "Incompatible data format. Because value of '" + attributeMapping.getName()
                             + "' is " + eventRecords.get(position) + " and attribute type is " + type
                             + " in the stream " + streamDefinition.getId()
                             + " of siddhi csv input mapper.";
-                    log.error(errMsg);
                     throw new MappingFailedException(errMsg);
                 }
             }

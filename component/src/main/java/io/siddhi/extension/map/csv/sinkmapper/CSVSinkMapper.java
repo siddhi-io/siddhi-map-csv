@@ -201,9 +201,10 @@ public class CSVSinkMapper extends SinkMapper {
                                     "[ERROR] " + entry.getKey() + "'s value : " + " should be an Integer in the '"
                                             + streamDefinition.getId() + "' of siddhi CSV input mapper.");
                         } catch (AttributeNotExistException e) {
-                            log.error("[ERROR] when arranging the attribute order, " + entry.getKey() +
-                                    " isn't in the '" + streamDefinition.getId() +
-                                    "' of siddhi custom CSV input mapper.");
+                            log.error(
+                                    "[ERROR] when arranging the attribute order, {} isn't in the '{}' of siddhi " +
+                                            "custom CSV input mapper.",
+                                    entry.getKey(), streamDefinition.getId());
                         }
                     }
                 }
@@ -300,8 +301,10 @@ public class CSVSinkMapper extends SinkMapper {
                 }
             }
         } catch (IOException e) {
-            log.error("[ERROR] Fail to print the data in csv format from Siddhi event in the stream  '"
-                    + streamDefinition.getId() + "' of siddhi CSV output mapper.", e);
+            log.error(
+                    "[ERROR] Fail to print the data in csv format from Siddhi event in the stream  '{}' of siddhi CSV" +
+                            " output mapper.",
+                    streamDefinition.getId(), e);
         }
 
     }
@@ -347,8 +350,9 @@ public class CSVSinkMapper extends SinkMapper {
             stringWriter.getBuffer().setLength(0);
         } catch (IOException e) {
             log.error(
-                    "[ERROR] Fail to print the data in csv format from Siddhi event in the stream  '"
-                            + streamDefinition.getId() + "' of siddhi CSV output mapper.", e);
+                    "[ERROR] Fail to print the data in csv format from Siddhi event in the stream  '{}' of siddhi CSV" +
+                            " output mapper.",
+                    streamDefinition.getId(), e);
         }
     }
 }
