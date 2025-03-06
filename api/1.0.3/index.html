@@ -753,8 +753,7 @@
 <p><span id="syntax" class="md-typeset" style="display: block; font-weight: bold;">Syntax</span></p>
 <pre><code>@sink(..., @map(type=&quot;csv&quot;, delimiter=&quot;&lt;STRING&gt;&quot;, header=&quot;&lt;BOOL&gt;&quot;, event.grouping.enabled=&quot;&lt;BOOL&gt;&quot;)
 </code></pre>
-
-<p><span id="query-parameters" class="md-typeset" style="display: block; color: rgba(0, 0, 0, 0.54); font-size: 12.8px; font-weight: bold;">QUERY PARAMETERS</span>
+<p><span id="query-parameters" class="md-typeset" style="display: block; color: rgba(0, 0, 0, 0.54); font-size: 12.8px; font-weight: bold;">QUERY PARAMETERS</span></p>
 <table>
     <tr>
         <th>Name</th>
@@ -788,13 +787,13 @@
         <td style="vertical-align: top">Yes</td>
         <td style="vertical-align: top">No</td>
     </tr>
-</table></p>
+</table>
+
 <p><span id="examples" class="md-typeset" style="display: block; font-weight: bold;">Examples</span>
 <span id="example-1" class="md-typeset" style="display: block; color: rgba(0, 0, 0, 0.54); font-size: 12.8px; font-weight: bold;">EXAMPLE 1</span></p>
 <pre><code>@sink(type='inMemory', topic='{{symbol}}', @map(type='csv'))
 define stream BarStream (symbol string, price float, volume long);
 </code></pre>
-
 <p style="word-wrap: break-word">Above configuration will perform a default CSV output mapping, which will  generate output as follows:<br>&nbsp;WSO2,55.6,100
 <br>If header is true and delimiter is "-", then the output will be as follows:<br>symbol-price-volume
 <br>WSO2-55.6-100
@@ -803,7 +802,6 @@ define stream BarStream (symbol string, price float, volume long);
 <p><span id="example-2" class="md-typeset" style="display: block; color: rgba(0, 0, 0, 0.54); font-size: 12.8px; font-weight: bold;">EXAMPLE 2</span></p>
 <pre><code>@sink(type='inMemory', topic='{{symbol}}', @map(type='csv',header='true',delimiter='-',@payload(symbol='0',price='2',volume='1')))define stream BarStream (symbol string, price float,volume long); 
 </code></pre>
-
 <p style="word-wrap: break-word">Above configuration will perform a custom CSV mapping. Here, user can add custom place order in the @payload. The place order indicates that where the attribute name's value will be appear in the output message, The output will be produced output as follows:<br>WSO2,100,55.6
 <br>If header is true and delimiter is "-", then the output will be as follows:<br>symbol-price-volume
 <br>WSO2-55.6-100
@@ -816,8 +814,7 @@ define stream BarStream (symbol string, price float, volume long);
 <p><span id="syntax" class="md-typeset" style="display: block; font-weight: bold;">Syntax</span></p>
 <pre><code>@source(..., @map(type=&quot;csv&quot;, delimiter=&quot;&lt;STRING&gt;&quot;, header.present=&quot;&lt;BOOL&gt;&quot;, fail.on.unknown.attribute=&quot;&lt;BOOL&gt;&quot;, event.grouping.enabled=&quot;&lt;BOOL&gt;&quot;)
 </code></pre>
-
-<p><span id="query-parameters" class="md-typeset" style="display: block; color: rgba(0, 0, 0, 0.54); font-size: 12.8px; font-weight: bold;">QUERY PARAMETERS</span>
+<p><span id="query-parameters" class="md-typeset" style="display: block; color: rgba(0, 0, 0, 0.54); font-size: 12.8px; font-weight: bold;">QUERY PARAMETERS</span></p>
 <table>
     <tr>
         <th>Name</th>
@@ -859,20 +856,19 @@ define stream BarStream (symbol string, price float, volume long);
         <td style="vertical-align: top">Yes</td>
         <td style="vertical-align: top">No</td>
     </tr>
-</table></p>
+</table>
+
 <p><span id="examples" class="md-typeset" style="display: block; font-weight: bold;">Examples</span>
 <span id="example-1" class="md-typeset" style="display: block; color: rgba(0, 0, 0, 0.54); font-size: 12.8px; font-weight: bold;">EXAMPLE 1</span></p>
 <pre><code>@source(type='inMemory', topic='stock', @map(type='csv'))
  define stream FooStream (symbol string, price float, volume int); 
 </code></pre>
-
 <p style="word-wrap: break-word">Above configuration will do a default CSV input mapping. Expected input will look like below:<br>&nbsp;WSO2 ,55.6 , 100OR<br>&nbsp;"WSO2,No10,Palam Groove Rd,Col-03" ,55.6 , 100If header.present is true and delimiter is "-", then the input is as follows:<br>symbol-price-volumeWSO2-55.6-100</p>
 
 <p><span id="example-2" class="md-typeset" style="display: block; color: rgba(0, 0, 0, 0.54); font-size: 12.8px; font-weight: bold;">EXAMPLE 2</span></p>
 <pre><code>@source(type='inMemory', topic='stock', @map(type='csv',header='true', @attributes(symbol = &quot;2&quot;, price = &quot;0&quot;, volume = &quot;1&quot;)))
 define stream FooStream (symbol string, price float, volume long); 
 </code></pre>
-
 <p style="word-wrap: break-word">Above configuration will perform a custom CSV mapping. Here, user can add place order of each attribute in the @attribute. The place order indicates where the attribute name's value has appeared in the input.Expected input will look like below:<br>55.6,100,WSO2
 <br>OR55.6,100,"WSO2,No10,Palm Groove Rd,Col-03"
 <br>If header is true and delimiter is "-", then the output is as follows:<br>price-volume-symbol
